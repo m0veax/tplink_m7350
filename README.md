@@ -1,6 +1,6 @@
 # Device Infos
 
-TP Link Router
+TP Link Router M7350 v3
 
 ## Photos
 
@@ -50,3 +50,4 @@ https://static.tp-link.com/upload/firmware/2022/202206/20220607/M7350(EU)_V4_220
 ### Sourcecode
 
 https://archive.org/download/tp-link-gpl-source/LTE/M7350/
+https://static.tp-link.com/resources/gpl/M7350v3_en_gpl.tar.gz
