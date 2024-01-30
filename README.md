@@ -51,5 +51,5 @@ The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can
 
 ### Sourcecode
 
-https://archive.org/download/tp-link-gpl-source/LTE/M7350/
-https://static.tp-link.com/resources/gpl/M7350v3_en_gpl.tar.gz
+- https://archive.org/download/tp-link-gpl-source/LTE/M7350/
+- https://static.tp-link.com/resources/gpl/M7350v3_en_gpl.tar.gz
