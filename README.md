@@ -27,9 +27,9 @@ Bus 001 Device 032: ID 2357:0005 TP-Link M7350 4G Mi-Fi Router
 ## Weblinks
 
 ### OpenWRT Board
-http://forum.archive.openwrt.org/viewtopic.php?id=72055
-http://forum.archive.openwrt.org/viewtopic.php?id=69257
+- http://forum.archive.openwrt.org/viewtopic.php?id=72055
+- http://forum.archive.openwrt.org/viewtopic.php?id=69257
 
 ### OEM
 
-http://www.tp-link.de/products/details/cat-5032_M7350.html
+- http://www.tp-link.de/products/details/cat-5032_M7350.html
