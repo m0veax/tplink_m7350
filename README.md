@@ -34,7 +34,9 @@ Device seems to run Android. You can get the firmware here:
 
 https://static.tp-link.com/upload/firmware/2022/202206/20220607/M7350(EU)_V4_220606.zip
 
+## .dtb files
 
+The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can be visualized with [dtvis](https://github.com/platform-system-interface/dtvis/)
 
 ## Weblinks
 
