@@ -4,9 +4,9 @@ TP Link Router
 
 ## Photos
 
-[up](assets/up.jpg)
+![up](assets/up.jpg)
 
-[down](assets/down.jpg)
+![down](assets/down.jpg)
 
 ## Notes
 
