@@ -84,6 +84,13 @@ Source: https://svson.xyz/posts/zte-dongle/part4/
 admin:admin
 ```
 
+##### `./system/sbin`
+
+Firmware seems to contain an `adbd`. We need to find a way to start it.
+
+##### `./META-INF/com/google/android/updater-script`
+
+Paths to Files and creating symlinks for autostart ect. Lets try to modify that to activate adb.
 
 ### .dtb files
 
@@ -93,6 +100,7 @@ The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can
 
 - [ ] Compare Kernel 3.4.0 with TP Link Sources
 - [ ] Find Qualcomm debug stuff online
+- [ ] Find a way to start `adbd`
 - [x] Link v3 Firmware instead of v4
 
 ## Weblinks
