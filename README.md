@@ -100,8 +100,10 @@ The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can
 
 - [ ] Compare Kernel 3.4.0 with TP Link Sources
 - [ ] Find Qualcomm debug stuff online
-- [ ] Find a way to start `adbd`
+- [ ] implement script to start telnet based on the vuln quoted in the 4pad forum
+- [x] Find a way to start `adbd`
 - [x] Link v3 Firmware instead of v4
+
 
 ## Weblinks
 
@@ -109,6 +111,10 @@ The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can
 - http://forum.archive.openwrt.org/viewtopic.php?id=72055
 - http://forum.archive.openwrt.org/viewtopic.php?id=69257
 - https://forum.openwrt.org/t/add-support-for-tp-link-m7350-v4/132119
+
+### 4pda
+- https://4pda-to.translate.goog/forum/index.php?showtopic=669936&st=100&_x_tr_sl=auto&_x_tr_tl=de&_x_tr_hl=de&_x_tr_pto=wapp#entry95895999 (translated)
+- https://4pda.to/forum/index.php?showtopic=669936&st=100#entry95895999 (russian)
 
 ### OEM
 
