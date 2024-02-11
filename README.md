@@ -38,11 +38,13 @@ Enter fastboot without bootloop
 fastboot reboot bootloader
 ```
 
-### OS
+### Firmware
 
 Device seems to run Android. You can get the firmware here:
 
 https://static.tp-link.com/upload/firmware/2022/202206/20220607/M7350(EU)_V4_220606.zip
+
+The Firmware is not crypted. You are able to unzip the .img and take a deeper look at it.
 
 ### .dtb files
 
@@ -52,6 +54,7 @@ The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can
 
 - [ ] Compare Kernel 3.4.0 with TP Link Sources
 - [ ] Find Qualcomm debug stuff online
+- [ ] Link v3 Firmware instead of v4
 
 ## Weblinks
 
