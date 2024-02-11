@@ -44,7 +44,7 @@ Device seems to run Android. You can get the firmware here:
 
 https://static.tp-link.com/2019/201912/20191209/M7350(EU)_V3_190531.zip
 
-The Firmware is not crypted. You are able to unzip the .img and take a deeper look at it.
+The Firmware is not crypted. You are able to take a deeper look into the configs.
 
 #### binwalk
 
@@ -65,6 +65,19 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 3821568       0x3A5000        Flattened device tree, size: 48516 bytes, version: 17
 3870720       0x3B1000        Flattened device tree, size: 47693 bytes, version: 17
 ```
+
+#### Findings
+
+##### `./system/etc/passwd-`
+
+```
+root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
+```
+
+Quick search for the hash gives us `oelinux123` as a possible value. We need to check that later.
+
+Source:https://svson.xyz/posts/zte-dongle/part4/
+
 
 ### .dtb files
 
