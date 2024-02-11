@@ -76,7 +76,13 @@ root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
 
 Quick search for the hash gives us `oelinux123` as a possible value. We need to check that later.
 
-Source:https://svson.xyz/posts/zte-dongle/part4/
+Source: https://svson.xyz/posts/zte-dongle/part4/
+
+##### `./system/etc/lighttpd.user`
+
+```
+admin:admin
+```
 
 
 ### .dtb files
