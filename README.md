@@ -68,7 +68,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 
 #### Findings
 
-##### `./system/etc/passwd-`
+##### `./system/etc/{passwd-,shadow}`
 
 ```
 root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
@@ -91,6 +91,10 @@ Firmware seems to contain an `adbd`. We need to find a way to start it.
 ##### `./META-INF/com/google/android/updater-script`
 
 Paths to Files and creating symlinks for autostart ect. Lets try to modify that to activate adb.
+
+##### RCE
+
+In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which allows to start the telnet daemon. There are only windows scripts linked right now. We should build a shellscript to invoke it.
 
 ### .dtb files
 
