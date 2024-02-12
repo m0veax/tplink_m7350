@@ -92,13 +92,24 @@ Firmware seems to contain an `adbd`. We need to find a way to start it.
 
 Paths to Files and creating symlinks for autostart ect. Lets try to modify that to activate adb.
 
-##### RCE
-
+##### Webinterface RCE to start telnet
 In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which allows to start the telnet daemon. There are only windows scripts linked right now. We should build a shellscript to invoke it.
+
+More about this [here](webinterface_rce_telnet/README.md)
 
 ### .dtb files
 
 The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can be visualized with [dtvis](https://github.com/platform-system-interface/dtvis/)
+
+### Testpoint and Bootpoint PBL
+
+There has been posted images on 4PDA to points in another revisions. Could be the same for our device. Take a look [here](assets/4pda/README.md)
+
+### Backup methods
+
+4PDA has found several ways to backup the installed firmware.
+
+[https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476](https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476)
 
 ## TODO
 
