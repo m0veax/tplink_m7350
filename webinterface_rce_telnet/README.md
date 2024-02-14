@@ -2,6 +2,8 @@
 
 4PDA forum members found a RCE to start telnet on the device. We need to write a script to start telnet and gain shellaccess. Maybe we can do a rust implementation.
 
+*Step 4* is important. Copy this package to modify the packet body
+
 ```
 1. Install (if you use another browser) Firefox or Google Chrome, I did everything on Fox, but the steps are similar;
 2. Reset the router to factory settings via the Web and set the standard log&pass to log in to the Web - admin:admin (not necessary, but preferable, save the settings on your computer, then restore);
