@@ -97,6 +97,8 @@ In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which 
 
 More about this [here](webinterface_rce_telnet/README.md)
 
+We started implementing a command line tool in `[tp-opener/](tp-opener/)`
+
 ### .dtb files
 
 The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can be visualized with [dtvis](https://github.com/platform-system-interface/dtvis/)
