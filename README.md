@@ -42,7 +42,7 @@ fastboot reboot bootloader
 
 Device seems to run Android. You can get the firmware here:
 
-https://static.tp-link.com/2019/201912/20191209/M7350(EU)_V3_190531.zip
+[TP-Link Support Page](https://www.tp-link.com/de/support/download/m7350/#Firmware)
 
 The Firmware is not crypted. You are able to take a deeper look into the configs.
 
