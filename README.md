@@ -118,6 +118,9 @@ There has been posted images on 4PDA to points in another revisions. Could be th
 - [ ] Compare Kernel 3.4.0 with TP Link Sources
 - [ ] Find Qualcomm debug stuff online
 - [ ] implement script to start telnet based on the vuln quoted in the 4pad forum
+- [ ] Explore Android / iOS App to find hidden Endpoints
+- [ ] Can we do Stuff with the ISP Files from the Download Section?
+- [ ] Try to get OpenWRT running on the Device
 - [x] Find a way to start `adbd`
 - [x] Link v3 Firmware instead of v4
 
