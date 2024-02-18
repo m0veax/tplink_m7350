@@ -113,6 +113,24 @@ There has been posted images on 4PDA to points in another revisions. Could be th
 
 [https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476](https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476)
 
+### Start adbd
+
+
+```
+usb_composition
+902B
+nyy
+```
+
+persistent adbd connection should be etablished now
+
+Per cable on your client:
+
+```
+adb shell
+```
+
+
 ## TODO
 
 - [ ] Compare Kernel 3.4.0 with TP Link Sources
