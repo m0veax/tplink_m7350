@@ -57,9 +57,6 @@ async fn main()  {
 	let args = Args::parse();
 	let token = args.token;
 
-	let telnet = "bla".to_string();
-	let english = "english".to_string();
-
 	/*
 	curl 'http://192.168.0.1/cgi-bin/qcmap_web_cgi' 
 		-X POST 
@@ -155,15 +152,26 @@ async fn main()  {
 
 	let client = reqwest::Client::new();
 
+	let payload_headers = headers.clone();
 	let payload_str = serde_json::to_string(&payload).unwrap();
+	let payload_restore_language_headers = headers.clone();
+	let payload_restore_language_str = serde_json::to_string(&payload_restore_language).unwrap();
 
 	let resp = client.post("http://192.168.0.1/cgi-bin/qcmap_web_cgi")
 		.body(payload_str)
-		.headers(headers)
+		.headers(payload_headers)
 		.send()
 		.await;
 
     println!("{resp:#?}");
+
+	let resp_language = client.post("http://192.168.0.1/cgi-bin/qcmap_web_cgi")
+		.body(payload_restore_language_str)
+		.headers(payload_restore_language_headers)
+		.send()
+		.await;
+
+	println!("{resp_language:#?}");
 
 }
 
