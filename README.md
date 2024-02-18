@@ -161,7 +161,7 @@ adb shell
 
 - [ ] Compare Kernel 3.4.0 with TP Link Sources
 - [ ] Find Qualcomm debug stuff online
-- [ ] implement script to start telnet based on the vuln quoted in the 4pad forum
+- [x] implement script to start telnet based on the vuln quoted in the 4pad forum
 - [ ] Explore Android / iOS App to find hidden Endpoints
 - [ ] Can we do Stuff with the ISP Files from the Download Section?
 - [ ] Try to get OpenWRT running on the Device
