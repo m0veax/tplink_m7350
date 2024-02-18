@@ -2,6 +2,32 @@
 
 TP Link Router M7350 v3
 
+## TOC
+
+- [Device Infos](#device-infos)
+  - [TOC](#toc)
+  - [Photos](#photos)
+  - [Notes](#notes)
+    - [fastboot](#fastboot)
+    - [Firmware](#firmware)
+      - [binwalk](#binwalk)
+      - [Findings](#findings)
+        - [`./system/etc/{passwd-,shadow}`](#systemetcpasswd-shadow)
+        - [`./system/etc/lighttpd.user`](#systemetclighttpduser)
+        - [`./system/sbin`](#systemsbin)
+        - [`./META-INF/com/google/android/updater-script`](#meta-infcomgoogleandroidupdater-script)
+        - [Webinterface RCE to start telnet](#webinterface-rce-to-start-telnet)
+    - [.dtb files](#dtb-files)
+    - [Testpoint and Bootpoint PBL](#testpoint-and-bootpoint-pbl)
+    - [Backup methods](#backup-methods)
+    - [Start adbd](#start-adbd)
+  - [TODO](#todo)
+  - [Weblinks](#weblinks)
+    - [OpenWRT Board](#openwrt-board)
+    - [4pda](#4pda)
+    - [OEM](#oem)
+    - [Sourcecode](#sourcecode)
+
 ## Photos
 
 ![up](assets/up.jpg)
