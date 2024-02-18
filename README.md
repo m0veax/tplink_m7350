@@ -11,12 +11,12 @@ TP Link Router M7350 v3
     - [fastboot](#fastboot)
     - [Firmware](#firmware)
       - [binwalk](#binwalk)
-      - [Findings](#findings)
-        - [`./system/etc/{passwd-,shadow}`](#systemetcpasswd-shadow)
-        - [`./system/etc/lighttpd.user`](#systemetclighttpduser)
-        - [`./system/sbin`](#systemsbin)
-        - [`./META-INF/com/google/android/updater-script`](#meta-infcomgoogleandroidupdater-script)
-        - [Webinterface RCE to start telnet](#webinterface-rce-to-start-telnet)
+    - [Findings](#findings)
+      - [`./system/etc/{passwd-,shadow}`](#systemetcpasswd-shadow)
+      - [`./system/etc/lighttpd.user`](#systemetclighttpduser)
+      - [`./system/sbin`](#systemsbin)
+      - [`./META-INF/com/google/android/updater-script`](#meta-infcomgoogleandroidupdater-script)
+      - [Webinterface RCE to start telnet](#webinterface-rce-to-start-telnet)
     - [.dtb files](#dtb-files)
     - [Testpoint and Bootpoint PBL](#testpoint-and-bootpoint-pbl)
     - [Backup methods](#backup-methods)
@@ -92,9 +92,9 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 3870720       0x3B1000        Flattened device tree, size: 47693 bytes, version: 17
 ```
 
-#### Findings
+### Findings
 
-##### `./system/etc/{passwd-,shadow}`
+#### `./system/etc/{passwd-,shadow}`
 
 ```
 root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
@@ -104,21 +104,21 @@ Quick search for the hash gives us `oelinux123` as a possible value. We need to 
 
 Source: https://svson.xyz/posts/zte-dongle/part4/
 
-##### `./system/etc/lighttpd.user`
+#### `./system/etc/lighttpd.user`
 
 ```
 admin:admin
 ```
 
-##### `./system/sbin`
+#### `./system/sbin`
 
 Firmware seems to contain an `adbd`. We need to find a way to start it.
 
-##### `./META-INF/com/google/android/updater-script`
+#### `./META-INF/com/google/android/updater-script`
 
 Paths to Files and creating symlinks for autostart ect. Lets try to modify that to activate adb.
 
-##### Webinterface RCE to start telnet
+#### Webinterface RCE to start telnet
 In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which allows to start the telnet daemon. There are only windows scripts linked right now. We should build a shellscript to invoke it.
 
 More about this [here](webinterface_rce_telnet/README.md)
