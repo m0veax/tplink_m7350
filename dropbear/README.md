@@ -1,4 +1,19 @@
-# Install dropbear
+# dropbear
+
+## install dropbear
+
+Get a dropbear binary by a method of your choice.
+
+- [Activate telnet](../tp-opener/README.md)
+- [start adbd](../README.md#start-adbd)
+- Connect device per USB to your computer
+
+```
+adb devices
+adb push dropbear /bin/dropbear
+```
+
+
 
 ## precompiled binary
 
