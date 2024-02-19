@@ -13,6 +13,7 @@ adb devices
 adb push dropbear /bin/dropbear
 ```
 
+Reboot your device.
 
 
 ## precompiled binary
@@ -53,7 +54,7 @@ I modified this [tutorial](https://lists.ucc.gu.uwa.edu.au/pipermail/dropbear/20
 ```bash
 export CC=arm-linux-gnueabihf-gcc
 export CFLAGS="-Os -ffunction-sections -fdata-sections -I/usr/bin/arm-linux-gnueabihf/include"
-export LDFLAGS="-Wl,--gc-sections -L/usr/bin/arm-linux-gnueabihf/lib"
+export LDFLAGS="-Wl,--gc-sections -L/usr/bin/arm-linux-gnueabihf/lib -static" 
 ./configure --disable-zlib --prefix=/usr/bin/arm-linux-gnueabihf --host=arm
 make
 ```
