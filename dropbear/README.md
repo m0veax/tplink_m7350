@@ -1,5 +1,13 @@
 # Install dropbear
 
+## precompiled binary
+
+Yeah, you need to trust me here
+
+```bash
+wget https://github.com/m0veax/tplink_m7350/raw/main/dropbear/dropbear
+```
+
 ## from source
 
 Get the sourcecode
@@ -33,13 +41,5 @@ export CFLAGS="-Os -ffunction-sections -fdata-sections -I/usr/bin/arm-linux-gnue
 export LDFLAGS="-Wl,--gc-sections -L/usr/bin/arm-linux-gnueabihf/lib"
 ./configure --disable-zlib --prefix=/usr/bin/arm-linux-gnueabihf --host=arm
 make
-```
-
-## precompiled binary
-
-Yeah, you need to trust me here
-
-```bash
-wget URL
 ```
 
