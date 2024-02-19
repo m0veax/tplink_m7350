@@ -2,6 +2,10 @@
 
 This does not work on the device (yet)
 
+## notes / todos
+
+CyReVolt mentioned I should try softfloat (sf) instead of hardfloat (hf). I could try to run `ldd` against the binary on the device using [cpu](https://github.com/u-root/cpu)
+
 ## install dropbear
 
 Get a dropbear binary by a method of your choice.
