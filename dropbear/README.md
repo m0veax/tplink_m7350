@@ -1,5 +1,7 @@
 # dropbear
 
+This does not work on the device (yet)
+
 ## install dropbear
 
 Get a dropbear binary by a method of your choice.
