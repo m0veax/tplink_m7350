@@ -21,6 +21,7 @@ TP Link Router M7350 v3
     - [Testpoint and Bootpoint PBL](#testpoint-and-bootpoint-pbl)
     - [Backup methods](#backup-methods)
     - [Start adbd](#start-adbd)
+    - [Stop adbd](#stop-adbd)
   - [TODO](#todo)
   - [Weblinks](#weblinks)
     - [OpenWRT Board](#openwrt-board)
@@ -154,6 +155,17 @@ Per cable on your client:
 
 ```
 adb shell
+```
+
+### Stop adbd
+
+After a reboot, the access point seems to be down. So you need to deactivate adbd again
+
+```
+adb shell
+usb_composition
+tplink
+nyy
 ```
 
 
