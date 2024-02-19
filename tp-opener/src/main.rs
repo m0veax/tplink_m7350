@@ -57,6 +57,68 @@ async fn main()  {
 	let args = Args::parse();
 	let token = args.token;
 
+	// TODO implement AUTH
+
+	/*
+	
+	var AUTH_MODULE = 'authenticator', WEB_CGI = 'cgi-bin/qcmap_web_cgi', AUTH_CGI = 'cgi-bin/qcmap_auth', authAction = {
+		LOAD: 0,
+		LOGIN: 1,
+		CHECK_ATTEMPT: 2,
+		CLOSE: 3,
+		UPDATE: 4
+	}, unsetFacAction = 3, ajaxTimeout = 10000, AUTH_RES = {
+		success: 0,
+		hasLogin: 1,
+		pwdWrong: 2,
+		ipLocked: 3,
+		otherLogin: 4,
+		unknownResult: 5
+	}, AuthModel = {
+		g_token: '',
+		login: function (a, b, c) {
+			if (!a || !b)
+				return null;
+			var d = callJSON(AUTH_MODULE, authAction.LOAD, null, null, null, ajaxTimeout, !1);
+			if (null === d)
+				return console.log('Auth Request Error'), void 0;
+			var e = CryptoJS.MD5([
+					a,
+					b,
+					d.nonce
+				].join(':')).toString(), f = callJSON(AUTH_MODULE, authAction.LOGIN, { digest: e }, null, null, ajaxTimeout, !1);
+			switch (f.result) {
+			case 0:
+				AuthModel.setAuthToken(f.token), c(AUTH_RES.success);
+				break;
+			case 1:
+				c(AUTH_RES.pwdWrong);
+				break;
+			default:
+				c(AUTH_RES.unknownResult);
+			}
+		},
+		setAuthToken: function (a) {
+			AuthModel.isCookieEnable() ? $.cookie('tpweb_token', a) : AuthModel.g_token = a;
+		},
+		removeAuthToken: function () {
+			AuthModel.isCookieEnable() ? $.removeCookie('tpweb_token') : AuthModel.g_token = '';
+		},
+		logout: function (a) {
+			var b = callJSON(AUTH_MODULE, authAction.CLOSE, null, null, null, ajaxTimeout, !1);
+			AuthModel.removeAuthToken(), a(b);
+		},
+		getToken: function () {
+			var a = '';
+			if (AuthModel.isCookieEnable()) {
+				var b = $.cookie('tpweb_token');
+				b ? a = b : AuthModel.promptNotAuth();
+			} else
+				AuthModel.g_token ? a = g_token : AuthModel.promptNotAuth();
+			return a;
+		},
+	 */
+
 	/*
 	curl 'http://192.168.0.1/cgi-bin/qcmap_web_cgi' 
 		-X POST 
