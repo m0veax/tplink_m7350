@@ -124,7 +124,7 @@ In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which 
 
 More about this [here](webinterface_rce_telnet/README.md)
 
-We started implementing a command line tool in `[tp-opener/](tp-opener/)`
+We implemented a [command line tool](tp-opener/README.md)
 
 ### .dtb files
 
