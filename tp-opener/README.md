@@ -1,7 +1,5 @@
 # Usage
 
-This tool is not working right now and still WIP.
-
 Login into the webinterface and copy the token out of your Cookie afterwards. Use the token to run the command line tool:
 
 ```
