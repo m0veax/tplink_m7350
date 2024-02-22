@@ -52,7 +52,7 @@ over, we are working on getting this to build in 2024.
 
 <https://github.com/m0veax/tplink_m7350-kernel>
 
-A config from a real device: <kernel/config>
+A config from a real device: [`kernel/config`](kernel/config)
 
 ### fastboot
 
