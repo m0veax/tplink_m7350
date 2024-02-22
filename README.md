@@ -45,6 +45,15 @@ Flash: 2Gbit (256MB) [Winbond W71NW20GF3FW](https://www.winbond.com/hq/product/c
 
 mobile wireless: [Skyworks SKY77629](https://www.skyworksinc.com/Products/Amplifiers/SKY77629)
 
+### kernel
+
+Based on the official sources from kernel.org and with vendor code `rsync`ed
+over, we are working on getting this to build in 2024.
+
+<https://github.com/m0veax/tplink_m7350-kernel>
+
+A config from a real device: <kernel/config>
+
 ### fastboot
 
 If you remove the battery and plugin USB, lsusb shows:
