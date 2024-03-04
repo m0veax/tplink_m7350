@@ -39,7 +39,7 @@ TP Link Router M7350 v3
 
 ### board components
 
-SoC: Qualcomm MDM9225
+SoC: [Qualcomm MDM9225](https://www.qualcomm.com/products/technology/modems/snapdragon-modems-4g-lte-x5)
 
 Flash: 2Gbit (256MB) [Winbond W71NW20GF3FW](https://www.winbond.com/hq/product/code-storage-flash-memory/nand-based-mcp/index.html?__locale=en&partNo=W71NW20GF3FW)
 
