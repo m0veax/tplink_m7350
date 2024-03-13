@@ -1,0 +1,761 @@
+/ # dmesg
+[    0.000000] Booting Linux on physical CPU 0
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 3.4.0+ (tp-link@Sohoidev) (gcc version 4.6.3 20111117 (prerelease) (GCC) ) #1 PREEMPT Wed Oct 15 10:58:56 CST 2014
+[    0.000000] CPU: ARMv7 Processor [410fc051] revision 1 (ARMv7), cr=10c53c7d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: Qualcomm MSM 9625 (Flattened Device Tree), model: Qualcomm MSM 9625V2.1 MTP
+[    0.000000] qcom,ion-heap@28 reserved EBI1 size e9000
+[    0.000000] tmc@fc322000 reserved EBI1 size 20000
+[    0.000000] qcom,msm-rtb reserved EBI1 size 1000
+[    0.000000] Node qcom,msm-mem-hole removed memory 1c00000-6400000
+[    0.000000] memory pool 3 (start 0x07e00000 size 200000) initialized
+[    0.000000] Memory policy: ECC disabled, Data cache writeback
+[    0.000000] IMEM DT static mapping successful
+[    0.000000] On node 0 totalpages: 13056
+[    0.000000] free_area_init_node: node 0, pgdat c07569b8, node_mem_map c0954000
+[    0.000000]   Normal zone: 250 pages used for memmap
+[    0.000000]   Normal zone: 0 pages reserved
+[    0.000000]   Normal zone: 12806 pages, LIFO batch:3
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 12806
+[    0.000000] Kernel command line: noinitrd root=/dev/mtdblock17 rw rootfstype=yaffs2 console=ttyHSL0,115200,n8 androidboot.hardware=qcom ehci-hcd.park=3 g-android.rx_trigger_enabled=1 androidboot.serialno=MDM9625 androidboot.baseband=msm
+[    0.000000] PID hash table entries: 256 (order: -2, 1024 bytes)
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.000000] Memory: 25MB 26MB = 51MB total
+[    0.000000] Memory: 42024k/42024k available, 12248k reserved, 0K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     vmalloc : 0xc8000000 - 0xff000000   ( 880 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xc7d00000   ( 125 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc06d6824   (6971 kB)
+[    0.000000]       .init : 0xc06d7000 - 0xc0706000   ( 188 kB)
+[    0.000000]       .data : 0xc0706000 - 0xc076a000   ( 400 kB)
+[    0.000000]        .bss : 0xc076a040 - 0xc094d378   (1933 kB)
+[    0.000000] SLUB: Genslabs=11, HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] NR_IRQS:16 nr_irqs:16 16
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 8 ways, CACHE_ID 0x410000c8, AUX_CTRL 0x00540000, Cache size: 262144 B
+[    0.000000] sched_clock: 32 bits at 19MHz, resolution 52ns, wraps every 223696ms
+[    0.000000] Switching to timer-based delay loop
+[    0.000000] Console: colour dummy device 80x30
+[    0.000103] Calibrating delay loop (skipped), value calculated using timer frequency.. 38.40 BogoMIPS (lpj=192000)
+[    0.000111] pid_max: default: 32768 minimum: 301
+[    0.000280] Mount-cache hash table entries: 512
+[    0.000742] Initializing cgroup subsys debug
+[    0.000755] Initializing cgroup subsys cpuacct
+[    0.000762] Initializing cgroup subsys freezer
+[    0.000809] CPU: Testing write buffer coherency: ok
+[    0.000979] hw perfevents: enabled with ARMv7 Cortex-A5 PMU driver, 3 counters available
+[    0.001785] Setting up static identity map for 0x7d1910 - 0x7d1974
+[    0.001794] MSM Memory Dump table set up
+[    0.006613] dummy: 
+[    0.006909] NET: Registered protocol family 16
+[    0.007548] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.008451] KPI: Bootloader start count = 171053
+[    0.008462] KPI: Bootloader end count = 262172
+[    0.008468] KPI: Bootloader display count = 2059461076
+[    0.008474] KPI: Bootloader load kernel count = 20561
+[    0.008481] KPI: Kernel MPM timestamp = 270897
+[    0.008487] KPI: Kernel MPM Clock frequency = 32768
+[    0.008503] socinfo_print: v8, id=149, ver=2.2, raw_id=2033, raw_ver=3, hw_plat=7, hw_plat_ver=65536
+[    0.008503]  accessory_chip=0, hw_plat_subtype=0, pmic_model=65539, pmic_die_revision=131074
+[    0.012125] gpiochip_add: registered GPIOs 0 to 75 on device: msmgpio
+[    0.013636] msm_watchdog f9017000.qcom,wdt: MSM Watchdog Initialized
+[    0.015280] spmi_pmic_arb fc4cf000.qcom,spmi: PPID 0x34: APID 0xa already mapped
+[    0.015341] spmi_pmic_arb fc4cf000.qcom,spmi: PPID 0x34: APID 0xa already mapped
+[    0.015401] spmi_pmic_arb fc4cf000.qcom,spmi: PPID 0x34: APID 0xa already mapped
+[    0.022390] Notify: smsm init
+[    0.025324] 8019_s1: 800 <--> 1050 mV at 1050 mV normal idle 
+[    0.025907] 8019_s2: 1250 mV normal idle 
+[    0.026446] 8019_s3: 1000 <--> 1100 mV at 1100 mV normal idle 
+[    0.026739] 8019_s3_ao: 1000 <--> 1100 mV at 0 mV normal idle 
+[    0.027230] 8019_s4: 1800 <--> 2075 mV at 2075 mV normal idle 
+[    0.027542] 8019_l1: 1225 mV normal idle 
+[    0.027584] 8019_l1: supplied by 8019_s2
+[    0.027891] 8019_l2: 1800 mV normal idle 
+[    0.027919] 8019_l2: supplied by 8019_s4
+[    0.028232] 8019_l3: 1800 mV normal idle 
+[    0.028262] 8019_l3: supplied by 8019_s4
+[    0.028583] 8019_l4: 3075 mV normal idle 
+[    0.028886] 8019_l5: 1800 <--> 2850 mV at 1800 mV normal idle 
+[    0.029187] 8019_l6: 1800 <--> 2850 mV at 1800 mV normal idle 
+[    0.029488] 8019_l7: 1800 mV normal idle 
+[    0.029522] 8019_l7: supplied by 8019_s4
+[    0.029843] 8019_l8: 2050 mV normal idle 
+[    0.029874] 8019_l8: supplied by 8019_s4
+[    0.030496] 8019_l9: 1200 mV normal idle 
+[    0.030535] 8019_l9: supplied by 8019_s2
+[    0.030915] 8019_l10: 500 <--> 1050 mV at 0 mV normal idle 
+[    0.030949] 8019_l10: supplied by 8019_s3
+[    0.031244] 8019_l10_corner: 0 <--> 0 mV at 0 mV normal idle 
+[    0.031530] 8019_l10_corner_ao: 0 <--> 0 mV at 0 mV normal idle 
+[    0.031817] 8019_l10_floor_corner: 0 <--> 0 mV at 0 mV normal idle 
+[    0.032419] 8019_l11: 1800 mV normal idle 
+[    0.032461] 8019_l11: supplied by 8019_s4
+[    0.032805] 8019_l12: 675 <--> 1050 mV at 0 mV normal idle 
+[    0.032838] 8019_l12: supplied by 8019_s3
+[    0.033164] 8019_l12_ao: 675 <--> 1050 mV at 0 mV normal idle 
+[    0.033197] 8019_l12_ao: supplied by 8019_s3_ao
+[    0.033496] 8019_l12_so: 675 <--> 1050 mV at 675 mV normal idle 
+[    0.033529] 8019_l12_so: supplied by 8019_s3
+[    0.033863] 8019_l13: 1800 <--> 2950 mV at 2950 mV normal idle 
+[    0.034185] 8019_l14: 2700 mV normal idle 
+[    0.041280] msm-thermal qcom,msm-thermal.21: probe_psm:Failed reading node=/soc/qcom,msm-thermal, key=qcom,pmic-sw-mode-temp. KTM continues
+[    0.041617] hw-breakpoint: Debug register access (0xee001eb3) caused undefined instruction on CPU 0
+[    0.041628] hw-breakpoint: Debug register access (0xee001e93) caused undefined instruction on CPU 0
+[    0.043023] qup_i2c f9925000.i2c: Missing 'qcom,master-id' DT entry
+[    0.043760] sps:BAM 0xf9984000 (va:0xc80a0000) enabled: ver:0x7, number of pipes:20
+[    0.043779] sps:BAM 0xf9984000 is registered.
+[    0.044591] sps:sps is ready.
+[    0.044593] gdsc_usb_hsic: 
+[    0.044783] AXI: msm_bus_fabric_init_driver(): msm_bus_fabric_init_driver
+[    0.045132] Error: Unable to find clock from of_node
+[    0.045141] Error getting clocks
+[    0.045151] AXI: msm_bus_fabric_probe(): Coresight support absent for bus: 1024
+[    0.045308] Error: Unable to find clock from of_node
+[    0.045315] Error getting clocks
+[    0.045322] AXI: msm_bus_fabric_probe(): Coresight support absent for bus: 0
+[    0.045507] Error: Unable to find clock from of_node
+[    0.045513] Error getting clocks
+[    0.045521] AXI: msm_bus_fabric_probe(): Coresight support absent for bus: 4096
+[    0.045709] Error: Unable to find clock from of_node
+[    0.045716] Error getting clocks
+[    0.045723] AXI: msm_bus_fabric_probe(): Coresight support absent for bus: 5120
+[    0.057716] bio: create slab <bio-0> at 0
+[    0.058180] platform regulator-isl80101.28: Driver reg-fixed-voltage requests probe deferral
+[    0.058319] usb_vbus: 
+[    0.059015] ION heap vmalloc created
+[    0.059138] ION heap iommu created
+[    0.059165] ION heap audio created at 0x07e01000 with size e9000
+[    0.059707] SCSI subsystem initialized
+[    0.059844] usbcore: registered new interface driver usbfs
+[    0.059913] usbcore: registered new interface driver hub
+[    0.060041] usbcore: registered new device driver usb
+[    0.072888] sps:BAM 0xfd4c4000 is registered.
+[    0.072890] sps:BAM 0xfd4c4000 (va:0xc80e0000) enabled: ver:0x21, number of pipes:20
+[    0.116217] ipa ipa_pipe_mem_init:1166 no IPA pipe mem alloted
+[    0.116659] sps:BAM 0xfc834000 is registered.
+[    0.116661] ipa connect_to_bam:570 connect_to_bam:
+[    0.118161] ipa ipa_cfg_ep_holb:1005 cfg holb 1 ep=7 tmr=511
+[    0.118428] ipa ipa_cfg_ep_holb:1005 cfg holb 1 ep=9 tmr=511
+[    0.118788] CCCC restart_reason 0
+[    0.122138] Switching to clocksource arch_sys_counter
+[    0.135336] NET: Registered protocol family 2
+[    0.135550] IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.135978] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+[    0.136033] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.136064] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.136071] TCP: reno registered
+[    0.136084] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.136104] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.136333] NET: Registered protocol family 1
+[    0.137810] L2CC PMU device found. DEBUG_CTRL: 4
+[    0.139708] gpiochip_find_base: found new base at 992
+[    0.139821] gpiochip_add: registered GPIOs 992 to 1023 on device: smp2p
+[    0.140255] gpiochip_find_base: found new base at 960
+[    0.140384] gpiochip_add: registered GPIOs 960 to 991 on device: smp2p
+[    0.140413] gpiochip_find_base: found new base at 928
+[    0.140495] gpiochip_add: registered GPIOs 928 to 959 on device: smp2p
+[    0.140949] gpiochip_find_base: found new base at 896
+[    0.141037] gpiochip_add: registered GPIOs 896 to 927 on device: smp2p
+[    0.141065] gpiochip_find_base: found new base at 864
+[    0.141150] gpiochip_add: registered GPIOs 864 to 895 on device: slave-kernel
+[    0.141670] gpiochip_find_base: found new base at 832
+[    0.141762] gpiochip_add: registered GPIOs 832 to 863 on device: master-kernel
+[    0.141848] gpiochip_find_base: found new base at 800
+[    0.141939] gpiochip_add: registered GPIOs 800 to 831 on device: smp2p
+[    0.142549] gpiochip_find_base: found new base at 768
+[    0.142638] gpiochip_add: registered GPIOs 768 to 799 on device: smp2p
+[    0.143047] AXI: msm_bus_scale_register_client(): Master 6 not supported. Client cannot be registered
+[    0.143057] scm-pas: unable to register bus client
+[    0.147816] NET: Registered protocol family 27
+[    0.150137] cpufreq_table_init: CPU: 4 scaling frequencies supported.
+[    0.150652] msm_rpm_log_probe: OK
+[    0.158745] fuse init (API version 7.18)
+[    0.159162] yaffs: yaffs built Oct 15 2014 10:58:56 Installing.
+[    0.159194] msgmni has been set to 82
+[    0.160635] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+[    0.160647] io scheduler noop registered
+[    0.160653] io scheduler deadline registered
+[    0.160670] io scheduler row registered
+[    0.160692] io scheduler cfq registered (default)
+[    0.160959] spmi_pmic_arb fc4cf000.qcom,spmi: PPID 0xc0 incorrect owner 2
+[    0.161120] spmi_pmic_arb fc4cf000.qcom,spmi: PPID 0xc1 incorrect owner 2
+[    0.161365] spmi_pmic_arb fc4cf000.qcom,spmi: PPID 0xc4 incorrect owner 2
+[    0.161470] gpiochip_find_base: found new base at 762
+[    0.161575] gpiochip_add: registered GPIOs 762 to 767 on device: pm8019-gpio
+[    0.161777] qcom,qpnp-pin qpnp-pin-c75cf200: qpnp_pin_probe: gpio_chip registered between 762-767
+[    0.162667] gpiochip_find_base: found new base at 756
+[    0.162777] gpiochip_add: registered GPIOs 756 to 761 on device: pm8019-mpp
+[    0.163108] qcom,qpnp-pin qpnp-pin-c75cf400: qpnp_pin_probe: gpio_chip registered between 756-761
+[    0.164019] msm_serial_hs module loaded
+[    0.164150] msm_serial_hsl_probe: detected port #0 (ttyHSL0)
+[    0.164406] msm_serial_hsl.0: ttyHSL0 at MMIO 0xf991f000 (irq = 141) is a MSM
+[    0.165863] msm_hsl_console_setup: console setup on port #0
+[    1.166320] console [ttyHSL0] enabled
+[    1.170289] msm_serial_hsl_init: driver initialized
+[    1.178235] diag: In diag_send_msg_mask_update, invalid status 0
+[    1.187494] diagchar initialized now
+[    1.187497] brd: module loaded
+[    1.195384] loop: module loaded
+[    1.197993] SCSI Media Changer driver v0.25 
+[    1.202344] sps: BAM device 0xf9ac4000 is not registered yet.
+[    1.207484] sps:BAM 0xf9ac4000 is registered.
+[    1.207485] msm_nand_bam_init: msm_nand_bam_init: BAM device registered: bam_handle 0xc78b4600
+[    1.220516] sps:BAM 0xf9ac4000 (va:0xc81c0000) enabled: ver:0x14, number of pipes:7
+[    1.228243] msm_nand_parse_smem_ptable: Parsing partition table info from SMEM
+[    1.235308] msm_nand_parse_smem_ptable: SMEM partition table found: ver: 4 len: 19
+[    1.242874] msm_nand_version_check: nand_major:1, nand_minor:1, qpic_major:1, qpic_minor:2
+[    1.251433] msm_nand_flash_onfi_probe: Found an ONFI compliant device W29N02GZ            �
+[    1.259401] msm_nand_scan: NAND Id: 0x1590aaef Buswidth: 8Bits Density: 256 MByte
+[    1.266862] msm_nand_scan: pagesize: 2048 Erasesize: 131072 oobsize: 64 (in Bytes)
+[    1.274411] msm_nand_scan: BCH ECC: 4 Bit
+[    1.278398] msm_nand_scan: CFG0: 0x2a0408c0,      CFG1: 0x0804745c
+[    1.278398]             RAWCFG0: 0x280420c0,   RAWCFG1: 0x0005045d
+[    1.278398]           ECCBUFCFG: 0x00000203, ECCBCHCFG: 0x42040700
+[    1.278398]      BAD BLOCK BYTE: 0x000001d1
+[    1.301127] Creating 19 MTD partitions on "f9ac0000.qcom,nand":
+[    1.306975] 0x000000000000-0x000000140000 : "sbl"
+[    1.312372] 0x000000140000-0x000000280000 : "mibib"
+[    1.317081] 0x000000280000-0x000000d80000 : "efs2"
+[    1.321835] 0x000000d80000-0x0000010e0000 : "sdi"
+[    1.326594] 0x0000010e0000-0x000001440000 : "tz"
+[    1.331150] 0x000001440000-0x000001500000 : "mba"
+[    1.335879] 0x000001500000-0x000001860000 : "rpm"
+[    1.340501] 0x000001860000-0x000004b20000 : "qdsp"
+[    1.345280] 0x000004b20000-0x000004b60000 : "pad"
+[    1.349938] 0x000004b60000-0x000004c40000 : "appsbl"
+[    1.354953] 0x000004c40000-0x000005680000 : "apps"
+[    1.359677] 0x000005680000-0x0000056c0000 : "scrub"
+[    1.364611] 0x0000056c0000-0x000009820000 : "cache"
+[    1.369420] 0x000009820000-0x000009c80000 : "misc"
+[    1.374255] 0x000009c80000-0x00000a6e0000 : "recovery"
+[    1.379341] 0x00000a6e0000-0x00000a840000 : "fota"
+[    1.384111] 0x00000a840000-0x00000a880000 : "recoveryfs"
+[    1.389372] 0x00000a880000-0x00000cd20000 : "system"
+[    1.394336] 0x00000cd20000-0x000010000000 : "userdata"
+[    1.399422] msm_nand_probe: NANDc phys addr 0xf9ac0000, BAM phys addr 0xf9ac4000, BAM IRQ 279
+[    1.407414] msm_nand_probe: Allocated DMA buffer at virt_addr 0xc81ba000, phys_addr 0x7bb8000
+[    1.416323] spi_qsd f9924000.spi: Missing 'qcom,master-id' DT entry
+[    1.422532] spi_qsd f9924000.spi: master is unqueued, this is deprecated
+[    1.429722] msm_otg f9a55000.usb: msm_otg probe
+[    1.433635] msm_otg f9a55000.usb: failed to get phy_clk
+[    1.438579] msm_otg f9a55000.usb: OTG regs = c81d0000
+[    1.445064] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    1.450754] msm_hsic_host msm_hsic_host: ehci_msm-hsic probe
+[    1.456242] msm_hsic_host msm_hsic_host: device tree enabled
+[    1.474661] msm_hsic_host msm_hsic_host: Qualcomm EHCI Host Controller using HSIC
+[    1.481129] msm_hsic_host msm_hsic_host: new USB bus registered, assigned bus number 1
+[    1.512228] msm_hsic_host msm_hsic_host: irq 168, io mem 0xf9a15000
+[    1.532201] msm_hsic_host msm_hsic_host: USB 2.0 started, EHCI 1.00
+[    1.537635] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    1.544269] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.551400] usb usb1: Product: Qualcomm EHCI Host Controller using HSIC
+[    1.558017] usb usb1: Manufacturer: Linux 3.4.0+ ehci_hcd
+[    1.563396] usb usb1: SerialNumber: msm_hsic_host
+[    1.568472] hub 1-0:1.0: USB hub found
+[    1.571830] hub 1-0:1.0: 1 port detected
+[    1.576361] hbm_init
+[    1.579482] Initializing USB Mass Storage driver...
+[    1.583459] usbcore: registered new interface driver usb-storage
+[    1.589309] USB Mass Storage support registered.
+[    1.593970] usbcore: registered new interface driver ums-alauda
+[    1.599844] usbcore: registered new interface driver ums-cypress
+[    1.605852] usbcore: registered new interface driver ums-datafab
+[    1.611819] usbcore: registered new interface driver ums-freecom
+[    1.617845] usbcore: registered new interface driver ums-isd200
+[    1.623734] usbcore: registered new interface driver ums-jumpshot
+[    1.629788] usbcore: registered new interface driver ums-karma
+[    1.635624] usbcore: registered new interface driver ums-onetouch
+[    1.641683] usbcore: registered new interface driver ums-sddr09
+[    1.647603] usbcore: registered new interface driver ums-sddr55
+[    1.653505] usbcore: registered new interface driver ums-usbat
+[    1.659311] usbcore: registered new interface driver usb_ehset_test
+[    1.665963] msm_otg f9a55000.usb: phy_reset: success
+[    1.672011] using rtc device, qpnp_rtc, for alarms
+[    1.672013] qcom,qpnp-rtc qpnp-rtc-c75cf000: rtc core: registered qpnp_rtc as rtc0
+[    1.685409] i2c /dev entries driver
+[    1.728269] mp2617 mp2617.32: mp2617_probe: MP2617 charger probed successfully
+[    1.735536] spmi_pmic_arb fc4cf000.qcom,spmi: int enable: invalid APID 256
+[    1.741626] spmi_pmic_arb fc4cf000.qcom,spmi: int enable: invalid APID 256
+[    1.748355] spmi_pmic_arb fc4cf000.qcom,spmi: int enable: invalid APID 256
+[    1.764837] cpuidle: using governor ladder
+[    1.768028] cpuidle: using governor menu
+[    1.772044] msm_sdcc msm_sdcc.2: no qcom,vdd-voltage-level property
+[    1.778268] msm_sdcc msm_sdcc.2: no qcom,vdd-current-level property
+[    1.784535] mmc0: SDCC Version: 0x00000038
+[    1.788386] msm_sdcc msm_sdcc.2: qcom,bus-bw-vectors-bps not specified
+[    1.795057] msmsdcc_vreg_init_reg: regulator_get(vdd) failed. rc=-517
+[    1.801315] msmsdcc_probe: msmsdcc_vreg_init() failed (-517)
+[    1.807035] platform msm_sdcc.2: Driver msm_sdcc requests probe deferral
+[    1.814054] usbcore: registered new interface driver usbhid
+[    1.819195] usbhid: USB HID core driver
+[    1.823183] logger: created 256K log 'log_main'
+[    1.827596] logger: created 64K log 'log_events'
+[    1.832226] logger: created 256K log 'log_radio'
+[    1.836787] logger: created 64K log 'log_system'
+[    1.841859] sps:BAM 0xf9a44000 is registered.
+[    1.846167] sps:BAM 0xf9a04000 is registered.
+[    1.846169] input: qpnp_pon as /devices/virtual/input/input0
+[    1.856205] coresight-cti fc308000.cti: CTI initialized
+[    1.860972] coresight-cti fc309000.cti: CTI initialized
+[    1.866205] coresight-cti fc30a000.cti: CTI initialized
+[    1.871385] coresight-cti fc30b000.cti: CTI initialized
+[    1.876656] coresight-cti fc30c000.cti: CTI initialized
+[    1.881801] coresight-cti fc30d000.cti: CTI initialized
+[    1.887027] coresight-cti fc30e000.cti: CTI initialized
+[    1.892194] ipa disconnect_to_bam:660 disconnect_to_bam
+[    1.898139] coresight-cti fc30f000.cti: CTI initialized
+[    1.902749] coresight-cti fc310000.cti: CTI initialized
+[    1.907843] coresight-cti fc333000.cti: CTI initialized
+[    1.913339] coresight-csr fc302000.csr: CSR initialized
+[    1.918757] sps:BAM 0xfc37c000 is registered.
+[    1.918759] coresight-tmc fc322000.tmc: TMC initialized
+[    1.928007] coresight-tmc fc307000.tmc: TMC initialized
+[    1.933276] platform fc318000.tpiu: Driver coresight-tpiu requests probe deferral
+[    1.940708] coresight-funnel fc31b000.funnel: FUNNEL initialized
+[    1.946508] coresight-funnel fc319000.funnel: FUNNEL initialized
+[    1.952548] msm_otg f9a55000.usb: Avail curr from USB = 1000
+[    1.958331] coresight-funnel fc31a000.funnel: FUNNEL initialized
+[    1.964401] coresight-replicator fc31c000.replicator: REPLICATOR initialized
+[    1.971612] coresight-stm fc321000.stm: STM initialized
+[    1.976624] coresight-hwevent f9011038.hwevent: Hardware Event driver initialized
+[    1.984320] coresight-etm fc332000.etm: ETM initialized
+[    2.042245] s90319_spi_probe successed!
+[    2.045067] oled_90319_panel_init success.
+[    2.049204] oled_probe
+[    2.051692] oled_s90319_probe
+[    2.054716] oled init success!
+[    2.057545] Netfilter messages via NETLINK v0.30.
+[    2.062244] nf_conntrack version 0.5.0 (656 buckets, 2624 max)
+[    2.068457] ctnetlink v0.93: registering with nfnetlink.
+[    2.073352] ip_set: protocol 6
+[    2.076646] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    2.081766] TCP: cubic registered
+[    2.085509] NET: Registered protocol family 10
+[    2.089997] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    2.094908] IPv6 over IPv4 tunneling driver
+[    2.099390] NET: Registered protocol family 17
+[    2.103403] Bridge firewalling registered
+[    2.107286] Ebtables v2.0 registered
+[    2.111270] VFP support v0.3: implementor 41 architecture 2 part 30 variant 5 rev 1
+[    2.118527] clock_late_init: Removing enables held for handed-off clocks
+[    2.129550] usb_vbus: incomplete constraints, leaving on
+[    2.134379] platform fc318000.tpiu: Driver coresight-tpiu requests probe deferral
+[    2.141431] msm_sdcc msm_sdcc.2: no qcom,vdd-voltage-level property
+[    2.147792] gpio_set_debounce: gpio-14 status -22
+[    2.148037] gpio_set_debounce: gpio-15 status -22
+[    2.148375] input: gpio-keys as /devices/gpio-keys.27/input/input1
+[    2.154224] qcom,qpnp-rtc qpnp-rtc-c75cf000: setting system clock to 1970-01-01 00:38:46 UTC (2326)
+[    2.162785] msm_sdcc msm_sdcc.2: no qcom,vdd-current-level property
+[    2.169184] mmc0: SDCC Version: 0x00000038
+[    2.173571] msm_hsusb msm_hsusb: [ci13xxx_start] hw_ep_max = 32
+[    2.179160] mbim_init: initialize 1 instances
+[    2.183363] msm_sdcc msm_sdcc.2: qcom,bus-bw-vectors-bps not specified
+[    2.189931] msmsdcc_vreg_init_reg: regulator_get(vdd) failed. rc=-517
+[    2.196372] mbim_init: Initialized 1 ports
+[    2.201824] rndis_qc_init: initialize rndis QC instance
+[    2.206061] msmsdcc_probe: msmsdcc_vreg_init() failed (-517)
+[    2.211727] platform msm_sdcc.2: Driver msm_sdcc requests probe deferral
+[    2.218759] android_usb gadget: Mass Storage Function, version: 2009/09/11
+[    2.225229] android_usb gadget: Number of LUNs=1
+[    2.229797]  lun0: LUN: removable file: (no medium)
+[    2.234979] ext_2p95v: 
+[    2.237400] coresight-tpiu fc318000.tpiu: sdc voltage levels not specified
+[    2.244261] android_usb gadget: android_usb ready
+[    2.248987] coresight-tpiu fc318000.tpiu: sdc current levels not specified
+[    2.255684] coresight-tpiu fc318000.tpiu: seta gpios not specified
+[    2.260828] coresight-tpiu fc318000.tpiu: setb gpios not specified
+[    2.267119] coresight-tpiu fc318000.tpiu: TPIU initialized
+[    2.272650] yaffs: dev is 32505873 name is "mtdblock17" rw
+[    2.277924] yaffs: passed flags ""
+[    2.281314] yaffs: Attempting MTD mount of 31.17,"mtdblock17"
+[    2.281663] msm_sdcc msm_sdcc.2: no qcom,vdd-voltage-level property
+[    2.287669] msm_sdcc msm_sdcc.2: no qcom,vdd-current-level property
+[    2.294316] mmc0: SDCC Version: 0x00000038
+[    2.297948] msm_sdcc msm_sdcc.2: qcom,bus-bw-vectors-bps not specified
+[    2.305344] mmc0: bam physical base=0xf9884000
+[    2.308883] mmc0: bam virtual base=0xc8268000
+[    2.313259] sps:BAM 0xf9884000 is registered.
+[    2.318085] mmc0: BAM device registered. bam_handle=0xc6e3f400
+[    2.318087] sps:BAM 0xf9884000 (va:0xc8268000) enabled: ver:0x7, number of pipes:6
+[    2.331644] mmc0: Qualcomm MSM SDCC-BAM at [mem 0xf9884000-0xf988afff flags 0x200] [irq 252 flags 0x400]
+[    2.340430] mmc0: Qualcomm MSM SDCC-DML [mem 0xf98a4800-0xf98a48ff flags 0x200]
+[    2.347735] mmc0: No card detect facilities available
+[    2.355003] mmc0: Qualcomm MSM SDCC-core [mem 0xf98a4000-0xf98a47ff flags 0x200] [irq 157 flags 0x400],0 dma -1 dmacrcri -1
+[    2.365366] mmc0: Controller capabilities: 0x00003ffe
+[    2.370273] mmc0: 8 bit data mode disabled
+[    2.374277] mmc0: 4 bit data mode enabled
+[    2.378245] mmc0: polling status mode disabled
+[    2.382822] mmc0: MMC clock 400000 -> 200000000 Hz, PCLK 0 Hz
+[    2.388405] mmc0: Slot eject status = 0
+[    2.392243] mmc0: Power save feature enable = 1
+[    2.396789] mmc0: SPS-BAM data transfer mode available
+[    5.081084] yaffs: yaffs_read_super: is_checkpointed 0
+[    5.081144] VFS: Mounted root (yaffs2 filesystem) on device 31:17.
+[    5.086860] Freeing init memory: 188K
+[    5.957411] yaffs: dev is 32505874 name is "mtdblock18" rw
+[    5.961862] yaffs: passed flags ""
+[    5.965315] yaffs: Attempting MTD mount of 31.18,"mtdblock18"
+[    8.451819] yaffs: yaffs_read_super: is_checkpointed 0
+[    8.452516] yaffs: dev is 32505868 name is "mtdblock12" rw
+[    8.457087] yaffs: passed flags ""
+[    8.460615] yaffs: Attempting MTD mount of 31.12,"mtdblock12"
+[    8.467220] yaffs: yaffs_read_super: is_checkpointed 1
+[    8.467645] yaffs: dev is 32505869 name is "mtdblock13" rw
+[    8.472092] yaffs: passed flags ""
+[    8.475553] yaffs: Attempting MTD mount of 31.13,"mtdblock13"
+[    8.497519] yaffs: yaffs_read_super: is_checkpointed 0
+[    8.579086] ctf: module license 'Proprietary' taints kernel.
+[    8.583772] Disabling lock debugging due to kernel taint
+[    8.589988] Broadcom CTF module V0.6-20140902 (WCC China-BJ)
+[    8.597287] 
+[    8.597287]  zqctest proc ok 
+[    8.600699] 
+[    8.600699]  zqctest stop ok 
+[    8.636222] wwan_init: WWAN devices[2]
+[    8.645495] add mac address 3a 87 ee dd 22 93
+[    8.645499] wwan_init: RMNET: rmnet0 ctf_attach succeeded
+[    8.660281] add mac address 8e 38 c1 e6 dc e1
+[    8.660284] wwan_init: RMNET: rmnet1 ctf_attach succeeded
+[    8.828521] msm_hsic_host msm_hsic_host: remove, state 1
+[    8.833111] usb usb1: USB disconnect, device number 1
+[    8.846144] msm_hsic_host msm_hsic_host: USB bus 1 deregistered
+[    8.913333] enable_store: android_usb: already disabled
+[    8.918167] rndis_function_bind_config: rndis_function_bind_config MAC: 00:00:00:00:00:00
+[    8.925996] gether_setup_name: RNDIS: ctf_attach() succeeds
+[    8.926000] android_usb gadget: using random self ethernet address
+[    8.937601] android_usb gadget: using random host ethernet address
+[    8.952776] rndis0: MAC f6:1b:a2:ae:80:d0
+[    8.955766] rndis0: HOST MAC 66:40:f6:b5:69:4b
+[    9.041713] adb_open
+[  103.924239] warning: `qrngd' uses 32-bit capabilities (legacy support in use)
+>[  106.017081] QCMAP:start
+[  106.034290] msm_thermal: enabled = 0
+[  106.272801] ipa connect_to_bam:570 connect_to_bam:
+[  106.283581] ipa ipa_cfg_ep_holb:1005 cfg holb 1 ep=7 tmr=511
+[  106.288506] ipa ipa_cfg_ep_holb:1005 cfg holb 1 ep=9 tmr=511
+>[  108.047464] USB QCMAP NL IOCTL Snd GETNEIGH Succ
+[  108.297534] ipa disconnect_to_bam:660 disconnect_to_bam
+>[  108.953077] QTI:start
+[  109.764197] device rndis0 entered promiscuous mode
+>[  109.805701] USB Client mac Address is f6:1b:a2:ae:80:d0
+>[  112.985309] QCMAP:Init Complete
+>[  113.036587] QTI:Enable mobileap
+>[  113.279738] USB Client mac Address is 84:16:f9:d8:5d:3c
+[  113.307719] eth_open:970:RNDIS:  ctf_dev_register/ctf_enable succeeds
+[  113.307722] ADDRCONF(NETDEV_UP): rndis0: link is not ready
+[  113.507220] Adding 5116k swap on /dev/loop6.  Priority:-1 extents:1 across:5116k 
+>[  115.074500] WLAN: bcmenumdev.sh start
+[  116.089677] msm_hsic_host msm_hsic_host: ehci_msm-hsic probe
+[  116.094373] msm_hsic_host msm_hsic_host: device tree enabled
+[  116.112550] msm_hsic_host msm_hsic_host: Qualcomm EHCI Host Controller using HSIC
+[  116.119050] msm_hsic_host msm_hsic_host: new USB bus registered, assigned bus number 1
+[  116.153692] msm_hsic_host msm_hsic_host: irq 168, io mem 0xf9a15000
+[  116.172237] msm_hsic_host msm_hsic_host: USB 2.0 started, EHCI 1.00
+[  116.177713] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[  116.184282] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[  116.191451] usb usb1: Product: Qualcomm EHCI Host Controller using HSIC
+[  116.198073] usb usb1: Manufacturer: Linux 3.4.0+ ehci_hcd
+[  116.203456] usb usb1: SerialNumber: msm_hsic_host
+[  116.212039] hub 1-0:1.0: USB hub found
+[  116.214905] hub 1-0:1.0: 1 port detected
+[  116.230965] hbm_init
+[  116.233504] sps:BAM 0xf9a04000 (va:0xc8200000) enabled: ver:0x7, number of pipes:16
+[  116.533620] usb 1-1: new high-speed USB device number 2 using msm_hsic_host
+[  116.575094] usb 1-1: New USB device found, idVendor=0a5c, idProduct=bd1c
+[  116.580764] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  116.587924] usb 1-1: Product: Remote Download Wireless Adapter
+[  116.594851] usb 1-1: Manufacturer: Broadcom
+[  116.597993] usb 1-1: SerialNumber: 000000000001
+>[  117.254303] WLAN: bcmdl -n /usr/bin/firmware/bcm/bcm43241/nvram_mid.txt /usr/bin/firmware/bcm/bcm43241/fw.bin.trx
+>[  117.993528] WLAN: /lib/modules/3.4.0+/bcm/dhd.ko
+[  118.055808] dhd_module_init in
+[  118.057995] no wifi platform data, skip
+[  118.061716] high speed device detected
+[  118.068138] dhd_attach: DHD: ctf_attach() succeeds
+[  118.072048] dhd_deferred_work_init: work queue initialized 
+[  118.077514] 
+[  118.077514] Dongle Host Driver, version 1.136.0.2 - WCC_China(BJ)
+[  118.077514] Compiled from /var/data/jenkins/workspace/M7350-V3-REL/apps_proc/oe-core/build/tmp-eglibc/work/mdm9625-oe-linux-gnueabi/bcm-dhd-git-fe3c1357be2a7cf2a2cb9b3d46569566af0e21d2-r0/bcm-dhd/BCM43241-DHD-HSIC-1.136.1/dhd/sources/src/dhd/linux/dhd-cdc-usb-hsic-gpl-customer-debug-3.4.0+/dhd_common.con Mar 30 2016 at 15:56:33
+[  118.117764] dhd_register_if:6002 DHD ctf_dev_register/ctf_enable succeeds
+[  118.126719] Register interface [eth0]  MAC: 00:90:4c:11:22:33
+[  118.126719] 
+[  118.135642] Enter wl_iw_iscan_set_scan_broadcast_prep 
+[  118.139745] Exited wl_iw_iscan_set_scan_broadcast_prep
+[  118.355017] dbus_usb_resetcfg: download done 200 ms postboot chip 0xa123/rev 0x1
+[  118.385028] DBUS: vid=0xa5c pid=0xbd1c devid=0x4322 bustype=0x0 mtu=512
+[  118.390611] Device support remote_wakeup of HSIC auto-suspend!
+[  118.396906] usbcore: registered new interface driver dbus_usbdev
+>[  118.608291] WLAN: Starting CXMAPP...
+>[  118.701936] WLAN: ifconfig eth0 up, before date: Wed Mar 30 08:38:24 GMT 2016
+[  118.709291] Enter wl_control_wl_start 
+[  118.712005] Exited wl_control_wl_start
+[  118.715804] dhd_dbus_state_change: DBUS current state=2
+[  118.733516] Firmware up: op_mode=0x0000, MAC=00:90:4c:c5:12:38
+[  118.749209] Firmware version = wl0: Apr  3 2015 11:11:05 version 6.10.197.115.10 (r477457) FWID 01-69845b4b
+[  118.771651] dhd_wlfc_init(): successfully enabled bdcv2 tlv signaling, 79
+[  118.779107] dhd_wlfc_init(): wlfc_mode=1, ret=-23
+>[  118.791660] WLAN: ifconfig eth0 up, after date: Wed Mar 30 08:38:24 GMT 2016
+>[  118.866725] WLAN: bcmApSet.sh wlarm 84:16:F9:D8:5D:3C
+[  119.091564] WLC_SET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+[  120.613537] br0: no IPv6 routers present
+[  120.643721] WLC_GET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+[  120.659355] WLC_GET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+[  120.665814] WLC_SET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+>[  120.936025] WLAN: brctl addif br0 eth0
+[  120.940263] device eth0 entered promiscuous mode
+[  120.947049] br0: port 2(eth0) entered forwarding state
+[  120.951227] br0: port 2(eth0) entered forwarding state
+[  128.973523] eth0: no IPv6 routers present
+[  135.963546] br0: port 2(eth0) entered forwarding state
+[  212.133664] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  286.469920] msm_otg f9a55000.usb: Avail curr from USB = 0
+[  286.951207] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  288.043637] msm_bam_lpm_ok: Going to LPM now
+[  288.047656] msm_otg f9a55000.usb: USB in low power mode
+[  292.549391] msm_otg f9a55000.usb: USB exited from low power mode
+[  292.733730] msm_otg f9a55000.usb: Avail curr from USB = 1000
+[  292.768242] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  322.320058] msm_otg f9a55000.usb: Avail curr from USB = 0
+[  324.003621] msm_bam_lpm_ok: Going to LPM now
+[  324.007636] msm_otg f9a55000.usb: USB in low power mode
+[  327.478657] msm_otg f9a55000.usb: USB exited from low power mode
+[  327.662352] msm_otg f9a55000.usb: Avail curr from USB = 1000
+[  328.049230] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  352.398249] msm_otg f9a55000.usb: Avail curr from USB = 0
+[  354.003608] msm_bam_lpm_ok: Going to LPM now
+[  354.007631] msm_otg f9a55000.usb: USB in low power mode
+[  359.058955] msm_otg f9a55000.usb: USB exited from low power mode
+[  359.193720] msm_otg f9a55000.usb: Avail curr from USB = 500
+[  359.199914] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_RESET_EVENT received
+[  359.206435] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_CONNECT_EVENT received
+[  359.291461] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  359.357838] msm_otg f9a55000.usb: Avail curr from USB = 100
+[  359.362514] mp2617 mp2617.32: mp2617_set_input_current_limit: Unsupported current_limit_ua=100000 uA
+[  359.371923] android_work: android_work: did not send uevent (0 0   (null))
+[  359.486002] android_work: android_work: sent uevent USB_STATE=CONNECTED
+[  359.493419] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+[  359.635095] android_work: android_work: sent uevent USB_STATE=CONNECTED
+[  359.658030] android_usb gadget: high-speed config #1: fe8078c8.android_usb
+[  359.663951] msm_otg f9a55000.usb: Avail curr from USB = 500
+[  359.669624] ADDRCONF(NETDEV_CHANGE): rndis0: link becomes ready
+[  359.675752] br0: port 1(rndis0) entered forwarding state
+[  359.680730] br0: port 1(rndis0) entered forwarding state
+>[  359.703474] QTI:RNDIS mode
+>[  359.708769] QTI:LINK_UP message posted
+[  359.743947] android_work: android_work: sent uevent USB_STATE=CONFIGURED
+>[  359.837269] USB Client mac Address is 66:40:f6:b5:69:4b
+>[  359.846520] QTI:LINK_DOWN_WAIT state
+>[  362.843718] QCMAP:USB Client IP Addr 192.168.0.111
+[  370.052187] rndis0: no IPv6 routers present
+>[  372.465493] QCMAP:USB Client IP Addr 192.168.0.111
+[  374.722235] br0: port 1(rndis0) entered forwarding state
+[  384.564185] Connection status: Conn Deauth 00 03
+[  436.158370] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  712.845881] br0: port 1(rndis0) entered disabled state
+[  712.850945] CTF RNDIS: u_eth_ctf_detach
+[  712.854624] ctf: RNDIS ctf_detach
+[  712.861357] br0: port 1(rndis0) entered disabled state
+[  712.868823] device rndis0 left promiscuous mode
+[  712.875853] br0: port 1(rndis0) entered disabled state
+[  712.892889] rndis_function_bind_config: rndis_function_bind_config MAC: 66:40:F6:B5:69:4B
+[  712.903747] gether_setup_name: RNDIS: ctf_attach() succeeds
+[  712.903750] android_usb gadget: using random self ethernet address
+>[  712.922499] QTI:LINK_DOWN message posted
+[  712.927296] android_usb gadget: using random host ethernet address
+[  712.933412] can't set rx trigger
+[  712.951722] rndis0: MAC 1a:c3:5d:fb:49:d5
+[  712.963569] rndis0: HOST MAC f2:e6:4e:13:83:3b
+[  712.967040] adb_bind_config
+[  712.969799] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_CONNECT_EVENT received
+[  712.986011] eth_open:970:RNDIS:  ctf_dev_register/ctf_enable succeeds
+[  712.986013] ADDRCONF(NETDEV_UP): rndis0: link is not ready
+[  713.006340] msm_otg f9a55000.usb: Avail curr from USB = 2
+[  713.013487] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_SUSPEND_EVENT received
+[  713.020473] android_work: android_work: did not send uevent (1 1   (null))
+>[  713.041081] Deleting USB Client Conntrack IP:192.168.0.111
+>[  713.090008] QTI:LINK_UP_WAIT state
+[  713.094857] mp2617 mp2617.32: mp2617_set_input_current_limit: Unsupported current_limit_ua=2000 uA
+[  713.181008] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_RESUME_EVENT received
+[  713.186783] msm_otg f9a55000.usb: Avail curr from USB = 100
+[  713.192599] mp2617 mp2617.32: mp2617_set_input_current_limit: Unsupported current_limit_ua=100000 uA
+[  713.201722] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+[  713.308098] android_work: android_work: sent uevent USB_STATE=CONNECTED
+[  713.317932] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+[  713.462439] android_work: android_work: sent uevent USB_STATE=CONNECTED
+[  713.490150] android_usb gadget: high-speed config #1: fe8078c8.android_usb
+[  713.496086] msm_otg f9a55000.usb: Avail curr from USB = 500
+[  713.501772] ADDRCONF(NETDEV_CHANGE): rndis0: link becomes ready
+>[  713.519103] QTI:RNDIS mode
+>[  713.525496] QTI:LINK_UP message posted
+[  713.549889] device rndis0 entered promiscuous mode
+[  713.553866] br0: port 1(rndis0) entered forwarding state
+[  713.558989] br0: port 1(rndis0) entered forwarding state
+[  713.570115] android_work: android_work: sent uevent USB_STATE=CONFIGURED
+>[  713.581165] USB Client mac Address is 1a:c3:5d:fb:49:d5
+>[  713.597083] QTI:LINK_DOWN_WAIT state
+>[  713.696376] USB Client mac Address is f2:e6:4e:13:83:3b
+>[  715.959976] QCMAP:USB Client IP Addr 192.168.0.163
+[  724.282188] rndis0: no IPv6 routers present
+[  728.562189] br0: port 1(rndis0) entered forwarding state
+[  769.702369] msm_otg f9a55000.usb: Avail curr from USB = 2
+[  769.706749] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_SUSPEND_EVENT received
+[  769.713668] android_work: android_work: sent uevent USB_STATE=SUSPENDED
+[  769.720205] mp2617 mp2617.32: mp2617_set_input_current_limit: Unsupported current_limit_ua=2000 uA
+[  769.891816] msm_otg f9a55000.usb: Avail curr from USB = 0
+[  769.900337] adb_release
+[  769.902120] adb_open
+[  769.904292] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_DISCONNECT_EVENT received
+[  769.919115] br0: port 1(rndis0) entered disabled state
+[  769.928451] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+>[  769.985305] QTI:LINK_DOWN message posted
+[  769.999170] device rndis0 left promiscuous mode
+[  770.006722] br0: port 1(rndis0) entered disabled state
+>[  770.029409] Deleting USB Client Conntrack IP:192.168.0.163
+>[  770.054380] QTI:LINK_UP_WAIT state
+[  770.826830] mass_storage_connect2pc_show: in_suspend_mode = 1
+[  771.002811] msm_bam_lpm_ok: Going to LPM now
+[  771.006875] msm_otg f9a55000.usb: USB in low power mode
+[  771.591846] msm_otg f9a55000.usb: USB exited from low power mode
+[  771.723737] msm_otg f9a55000.usb: Avail curr from USB = 500
+[  771.729965] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_RESET_EVENT received
+[  771.736341] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_CONNECT_EVENT received
+[  771.891518] msm_otg f9a55000.usb: Avail curr from USB = 100
+[  771.896162] mp2617 mp2617.32: mp2617_set_input_current_limit: Unsupported current_limit_ua=100000 uA
+[  771.905562] android_work: android_work: did not send uevent (0 0   (null))
+[  772.018556] android_work: android_work: sent uevent USB_STATE=CONNECTED
+[  772.025365] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+[  772.166260] android_work: android_work: sent uevent USB_STATE=CONNECTED
+[  772.193696] android_usb gadget: high-speed config #1: fe8078c8.android_usb
+[  772.199631] msm_otg f9a55000.usb: Avail curr from USB = 500
+>[  772.216532] QTI:RNDIS mode
+>[  772.223203] QTI:LINK_UP message posted
+[  772.247013] device rndis0 entered promiscuous mode
+[  772.250970] br0: port 1(rndis0) entered forwarding state
+[  772.256155] br0: port 1(rndis0) entered forwarding state
+[  772.266502] android_work: android_work: sent uevent USB_STATE=CONFIGURED
+>[  772.281801] USB Client mac Address is 1a:c3:5d:fb:49:d5
+>[  772.298449] QTI:LINK_DOWN_WAIT state
+>[  772.330509] USB Client mac Address is f2:e6:4e:13:83:3b
+>[  772.362045] QCMAP:USB Client IP Addr 192.168.0.163
+[  772.613179] mass_storage_connect2pc_show: in_suspend_mode = 0
+>[  783.355533] QCMAP:USB Client IP Addr 192.168.0.163
+[  787.282193] br0: port 1(rndis0) entered forwarding state
+[  849.148982] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  956.135493] mass_storage_connect2pc_show: in_suspend_mode = 0
+[  986.766372] mass_storage_connect2pc_show: in_suspend_mode = 0
+>[  986.819338] WLAN: brctl delif br0 eth0
+[  986.823594] device eth0 left promiscuous mode
+[  986.827052] br0: port 2(eth0) entered disabled state
+>[  986.848440] WLAN: ifconfig eth0 down
+>[  986.874027] WLAN: rmmod dhd before date: Wed Mar 30 08:52:53 GMT 2016
+[  986.881894] dhd_dbus_state_change: DBUS is down
+[  986.885956] deleting interface 'eth0' idx 0
+[  986.889558] dhd_remove_if: Here call the ctf_dev_uregister()
+[  986.895248] ctf: DHD ctf_dev_unregister
+[  987.882341] dhd_ctf_detach: will call osl_ctfpool_cleanup()
+[  987.886882] CTF DHD: dhd_ctf_detach
+[  987.890353] ctf: DHD ctf_detach
+[  987.893525] usbcore: deregistering interface driver dbus_usbdev
+>[  987.907918] WLAN: rmmod dhd after date: Wed Mar 30 08:52:54 GMT 2016
+>[  987.913443] WLAN: bcmenumdev.sh stop
+[  987.919067] msm_hsic_host msm_hsic_host: remove, state 1
+[  987.923427] usb usb1: USB disconnect, device number 1
+[  987.928379] usb 1-1: USB disconnect, device number 2
+[  987.955143] msm_hsic_host msm_hsic_host: USB bus 1 deregistered
+>[  987.975794] WLAN: Stopping CXMAPP...
+[ 1033.138386] mass_storage_connect2pc_show: in_suspend_mode = 0
+>[ 1051.329150] WLAN: bcmenumdev.sh start
+[ 1051.547222] mass_storage_connect2pc_show: in_suspend_mode = 0
+[ 1052.352546] msm_hsic_host msm_hsic_host: ehci_msm-hsic probe
+[ 1052.357176] msm_hsic_host msm_hsic_host: device tree enabled
+[ 1052.375735] msm_hsic_host msm_hsic_host: Qualcomm EHCI Host Controller using HSIC
+[ 1052.382279] msm_hsic_host msm_hsic_host: new USB bus registered, assigned bus number 1
+[ 1052.412239] msm_hsic_host msm_hsic_host: irq 168, io mem 0xf9a15000
+[ 1052.432211] msm_hsic_host msm_hsic_host: USB 2.0 started, EHCI 1.00
+[ 1052.437655] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[ 1052.444234] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[ 1052.451485] usb usb1: Product: Qualcomm EHCI Host Controller using HSIC
+[ 1052.458029] usb usb1: Manufacturer: Linux 3.4.0+ ehci_hcd
+[ 1052.463410] usb usb1: SerialNumber: msm_hsic_host
+[ 1052.472017] hub 1-0:1.0: USB hub found
+[ 1052.474881] hub 1-0:1.0: 1 port detected
+[ 1052.481867] hbm_init
+[ 1052.484614] sps:BAM 0xf9a04000 (va:0xc8200000) enabled: ver:0x7, number of pipes:16
+[ 1052.792242] usb 1-1: new high-speed USB device number 2 using msm_hsic_host
+[ 1052.826254] usb 1-1: New USB device found, idVendor=0a5c, idProduct=bd1c
+[ 1052.831916] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[ 1052.839058] usb 1-1: Product: Remote Download Wireless Adapter
+[ 1052.844878] usb 1-1: Manufacturer: Broadcom
+[ 1052.849015] usb 1-1: SerialNumber: 000000000001
+>[ 1053.504442] WLAN: bcmdl -n /usr/bin/firmware/bcm/bcm43241/nvram_mid.txt /usr/bin/firmware/bcm/bcm43241/fw.bin.trx
+>[ 1053.908118] WLAN: /lib/modules/3.4.0+/bcm/dhd.ko
+[ 1053.918128] dhd_module_init in
+[ 1053.920317] no wifi platform data, skip
+[ 1053.926913] high speed device detected
+[ 1053.929777] dhd_attach: DHD: ctf_attach() succeeds
+[ 1053.934528] dhd_deferred_work_init: work queue initialized 
+[ 1053.939965] 
+[ 1053.939965] Dongle Host Driver, version 1.136.0.2 - WCC_China(BJ)
+[ 1053.939965] Compiled from /var/data/jenkins/workspace/M7350-V3-REL/apps_proc/oe-core/build/tmp-eglibc/work/mdm9625-oe-linux-gnueabi/bcm-dhd-git-fe3c1357be2a7cf2a2cb9b3d46569566af0e21d2-r0/bcm-dhd/BCM43241-DHD-HSIC-1.136.1/dhd/sources/src/dhd/linux/dhd-cdc-usb-hsic-gpl-customer-debug-3.4.0+/dhd_common.con Mar 30 2016 at 15:56:33
+[ 1053.980437] dhd_register_if:6002 DHD ctf_dev_register/ctf_enable succeeds
+[ 1053.989304] Register interface [eth0]  MAC: 00:90:4c:11:22:33
+[ 1053.989304] 
+[ 1053.998200] Enter wl_iw_iscan_set_scan_broadcast_prep 
+[ 1054.002390] Exited wl_iw_iscan_set_scan_broadcast_prep
+[ 1054.212910] dbus_usb_resetcfg: download done 200 ms postboot chip 0xa123/rev 0x1
+[ 1054.242364] DBUS: vid=0xa5c pid=0xbd1c devid=0x4322 bustype=0x0 mtu=512
+[ 1054.247948] Device support remote_wakeup of HSIC auto-suspend!
+[ 1054.263262] usbcore: registered new interface driver dbus_usbdev
+>[ 1054.474155] WLAN: Starting CXMAPP...
+>[ 1054.559942] WLAN: ifconfig eth0 up, before date: Wed Mar 30 08:54:00 GMT 2016
+[ 1054.573065] Enter wl_control_wl_start 
+[ 1054.575786] Exited wl_control_wl_start
+[ 1054.579524] dhd_dbus_state_change: DBUS current state=2
+[ 1054.597373] Firmware up: op_mode=0x0000, MAC=00:90:4c:c5:12:38
+[ 1054.610618] Firmware version = wl0: Apr  3 2015 11:11:05 version 6.10.197.115.10 (r477457) FWID 01-69845f4b
+[ 1054.628490] dhd_wlfc_init(): successfully enabled bdcv2 tlv signaling, 79
+[ 1054.635051] dhd_wlfc_init(): wlfc_mode=1, ret=-23
+>[ 1054.645769] WLAN: ifconfig eth0 up, after date: Wed Mar 30 08:54:00 GMT 2016
+>[ 1054.662718] WLAN: bcmApSet.sh wlarm 84:16:F9:D8:5D:3C
+[ 1054.824288] WLC_SET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+[ 1056.306169] WLC_GET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+[ 1056.317148] WLC_GET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+[ 1056.327656] WLC_SET_ACS_C_CHANNEL_LIST, chanspec_num: 0
+>[ 1056.568855] WLAN: brctl addif br0 eth0
+[ 1056.573216] device eth0 entered promiscuous mode
+[ 1056.580170] br0: port 2(eth0) entered forwarding state
+[ 1056.584369] br0: port 2(eth0) entered forwarding state
+[ 1056.670665] mass_storage_connect2pc_show: in_suspend_mode = 0
+[ 1065.482191] eth0: no IPv6 routers present
+[ 1071.602193] br0: port 2(eth0) entered forwarding state
+[ 1128.116694] mass_storage_connect2pc_show: in_suspend_mode = 0
+[ 1238.748613] mass_storage_connect2pc_show: in_suspend_mode = 0
+>[ 1238.785696] WLAN: brctl delif br0 eth0
+[ 1238.789797] device eth0 left promiscuous mode
+[ 1238.793517] br0: port 2(eth0) entered disabled state
+>[ 1238.812706] WLAN: ifconfig eth0 down
+>[ 1238.844568] WLAN: rmmod dhd before date: Wed Mar 30 08:57:05 GMT 2016
+[ 1238.852549] dhd_dbus_state_change: DBUS is down
+[ 1238.856549] deleting interface 'eth0' idx 0
+[ 1238.860211] dhd_remove_if: Here call the ctf_dev_uregister()
+[ 1238.865911] ctf: DHD ctf_dev_unregister
+[ 1239.852467] dhd_ctf_detach: will call osl_ctfpool_cleanup()
+[ 1239.857008] CTF DHD: dhd_ctf_detach
+[ 1239.860480] ctf: DHD ctf_detach
+[ 1239.863688] usbcore: deregistering interface driver dbus_usbdev
+>[ 1239.877882] WLAN: rmmod dhd after date: Wed Mar 30 08:57:06 GMT 2016
+>[ 1239.883414] WLAN: bcmenumdev.sh stop
+[ 1239.889136] msm_hsic_host msm_hsic_host: remove, state 1
+[ 1239.893497] usb usb1: USB disconnect, device number 1
+[ 1239.898449] usb 1-1: USB disconnect, device number 2
+[ 1239.919417] msm_hsic_host msm_hsic_host: USB bus 1 deregistered
+>[ 1239.940087] WLAN: Stopping CXMAPP...
+
