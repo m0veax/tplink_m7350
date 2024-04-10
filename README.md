@@ -143,6 +143,8 @@ More about this [here](webinterface_rce_telnet/README.md)
 
 We implemented a [command line tool](tp-opener/README.md)
 
+There is a ruby implementation too [https://github.com/ecdsa521/tpown/tree/main](https://github.com/ecdsa521/tpown/tree/main)
+
 ### .dtb files
 
 The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can be visualized with [dtvis](https://github.com/platform-system-interface/dtvis/)
