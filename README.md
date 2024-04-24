@@ -2,6 +2,10 @@
 
 TP Link Router M7350 v3
 
+# Community
+
+Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=yip.gay&via=matrix.org&via=chaospott.de)
+
 ## TOC
 
 - [Device Infos](#device-infos)
