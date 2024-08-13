@@ -100,6 +100,8 @@ The following `getvar` commands yield results:
 | `version`           | `0.5`            |
 | `kernel`            | `lk`             |
 | `max-download-size` | `0x2f00000`      |
+| `product`           | `MDM9625`        |
+| `serialno`          | `MDM9625`        |
 
 ### Firmware
 
