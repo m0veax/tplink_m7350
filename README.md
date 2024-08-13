@@ -90,6 +90,17 @@ Enter fastboot without bootloop
 fastboot reboot bootloader
 ```
 
+Qualcomm [documents their fastboot commands](
+https://docs.qualcomm.com/bundle/publicresource/topics/80-70014-4/fastboot.html).
+
+The following `getvar` commands yield results:
+
+| variable            | result           |
+| ------------------- | ---------------- |
+| `version`           | `0.5`            |
+| `kernel`            | `lk`             |
+| `max-download-size` | `0x2f00000`      |
+
 ### Firmware
 
 Device seems to run Android. You can get the firmware here:
