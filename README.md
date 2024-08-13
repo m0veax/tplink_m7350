@@ -45,6 +45,10 @@ Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=
 
 SoC: [Qualcomm MDM9225](https://www.qualcomm.com/products/technology/modems/snapdragon-modems-4g-lte-x5)
 
+Quick note on Qualcomm terms:
+- MDM is [_Mobile Data Modem_](https://www.qualcomm.com/news/releases/2011/02/qualcomm-delivers-faster-mobile-broadband-experience-new-higher-speed-lte)
+- MSM is [_Mobile Station Modem_](https://www.qualcomm.com/news/releases/1997/03/qualcomm-announces-next-generation-mobile-station-modem)
+
 Flash: 2Gbit (256MB) [Winbond W71NW20GF3FW](https://www.winbond.com/hq/product/code-storage-flash-memory/nand-based-mcp/index.html?__locale=en&partNo=W71NW20GF3FW)
 
 mobile wireless: [Skyworks SKY77629](https://www.skyworksinc.com/Products/Amplifiers/SKY77629)
