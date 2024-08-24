@@ -118,11 +118,11 @@ The OLED display is called
 - `tplink,oleds90319` (node behind `qcom,spi-qup-v2`)
 - `tp,oled_pt` -> `qcom,oled_s90319_pt`
 
-It is unclear what exactly the display driver is.
-It looks like a 256x256 monochrome display.
+Indeed, the side of the display (white frame) reads: `BLB-S90319B-1`
 
-There is `drivers/video/msm/lcdc_samsung_oled_pt.c`, which is the best fit.
-And `CONFIG_FB_MSM_LCDC_SAMSUNG_OLED_PT` enables it.
+There is no such thing in the vendor kernel sources, nor do Google or Bing yield
+anything. So it is unclear what exactly the display driver is.
+It looks like a 128x128 monochrome display, similar to _SH1107_.
 
 <details>
   <summary>DeviceTree excerpt</summary>
@@ -158,6 +158,18 @@ And `CONFIG_FB_MSM_LCDC_SAMSUNG_OLED_PT` enables it.
       qcom,oled-boost-en-gpio = <0x02 0x3d 0x00>;
     };
   };
+```
+</details>
+
+<details>
+  <summary>kernel log excerpt</summary>
+
+```
+[    2.042245] s90319_spi_probe successed!
+[    2.045067] oled_90319_panel_init success.
+[    2.049204] oled_probe
+[    2.051692] oled_s90319_probe
+[    2.054716] oled init success!
 ```
 </details>
 
