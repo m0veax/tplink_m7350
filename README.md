@@ -107,7 +107,7 @@ The following `getvar` commands yield results:
 
 ### Display
 
-The display is attached to the SPI bus via the controller at `0xf992_40000`.
+The display is attached to the SPI bus via the controller at `0xf992_4000`.
 We could extract that information from the device trees.
 
 The SPI controller compat string is `qcom,spi-qup-v2`.
