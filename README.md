@@ -105,9 +105,65 @@ The following `getvar` commands yield results:
 | `product`           | `MDM9625`        |
 | `serialno`          | `MDM9625`        |
 
+### Display
+
+The display is attached to the SPI bus via the controller at `0xf992_40000`.
+We could extract that information from the device trees.
+
+The SPI controller compat string is `qcom,spi-qup-v2`.
+In the vendor kernel, the SPI driver is `drivers/spi/spi_qsd.c`.
+In mainline Linux, it is `drivers/spi/spi-qup.c`.
+
+The OLED display is called
+- `tplink,oleds90319` (node behind `qcom,spi-qup-v2`)
+- `tp,oled_pt` -> `qcom,oled_s90319_pt`
+
+It is unclear what exactly the display driver is.
+It looks like a 256x256 monochrome display.
+
+There is `drivers/video/msm/lcdc_samsung_oled_pt.c`, which is the best fit.
+And `CONFIG_FB_MSM_LCDC_SAMSUNG_OLED_PT` enables it.
+
+<details>
+  <summary>DeviceTree excerpt</summary>
+
+```
+  spi@f9924000 {
+    compatible = "qcom,spi-qup-v2";
+    reg = <0xf9924000 0x1000>;
+    interrupts = <0x00 0x60 0x00>;
+    spi-max-frequency = <0x17d7840>;
+    #address-cells = <0x01>;
+    #size-cells = <0x00>;
+    gpios = <0x02 0x07 0x00 0x02 0x05 0x00 0x02 0x04 0x00>;
+    cs-gpios = <0x02 0x06 0x00>;
+
+    qcom-spi-oled@1 {
+      compatible = "tplink,oleds90319";
+      reg = <0x01>;
+      spi-max-frequency = <0x927c00>;
+    };
+  };
+
+  oled {
+    compatible = "tp,oled_pt";
+
+    qcom,oled_s90319 {
+      compatible = "qcom,oled_s90319_pt";
+      qcom,oled-cs-gpio = <0x02 0x06 0x00>;
+      qcom,oled-rsx-gpio = <0x02 0x15 0x00>;
+      qcom,oled-reset-gpio = <0x02 0x14 0x00>;
+      qcom,oled-vdd0-gpio = <0x02 0x16 0x00>;
+      qcom,oled-vdd1-gpio = <0x02 0x17 0x00>;
+      qcom,oled-boost-en-gpio = <0x02 0x3d 0x00>;
+    };
+  };
+```
+</details>
+
 ### Firmware
 
-Device seems to run Android. You can get the firmware here:
+Device seems to run an Android kernel. You can get the firmware here:
 
 [TP-Link Support Page](https://www.tp-link.com/de/support/download/m7350/#Firmware)
 
