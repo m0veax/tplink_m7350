@@ -122,7 +122,14 @@ Indeed, the side of the display (white frame) reads: `BLB-S90319B-1`
 
 There is no such thing in the vendor kernel sources, nor do Google or Bing yield
 anything. So it is unclear what exactly the display driver is.
-It looks like a 128x128 monochrome display, similar to _SH1107_.
+It looks like a 128x128 monochrome display, similar to _SSD1306_ / _SH1107_.
+
+From the kernel config we dumped:
+```
+CONFIG_OLED=y
+# CONFIG_OLED_SSD1306_PT is not set
+CONFIG_OLED_S90319_PT=y
+```
 
 <details>
   <summary>DeviceTree excerpt</summary>
