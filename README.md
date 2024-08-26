@@ -182,7 +182,7 @@ CONFIG_OLED_S90319_PT=y
 
 ### Firmware
 
-Device seems to run an Android kernel. You can get the firmware here:
+Device seems to run Android, without `/dev/binder`. You can get the firmware here:
 
 [TP-Link Support Page](https://www.tp-link.com/de/support/download/m7350/#Firmware)
 
