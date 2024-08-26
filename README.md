@@ -131,6 +131,17 @@ CONFIG_OLED=y
 CONFIG_OLED_S90319_PT=y
 ```
 
+The binary `/usr/bin/oledd` is started via `/etc/init.d/start_oledd`.
+It accesses the OLED display via sysfs:
+
+- `/sys/class/display/oled/backlight_on`
+- `/sys/class/display/oled/panel_on`
+- `/sys/class/display/oled/oled_buffer`
+
+We can echo `1` / `0` to the `*_on` files to play with the display.
+And we can write to the buffer ourselves, though how it works is not yet clear.
+Playing around showed that the display panel really supports colors. :rainbow:
+
 <details>
   <summary>DeviceTree excerpt</summary>
 
