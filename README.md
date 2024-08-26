@@ -142,6 +142,17 @@ We can echo `1` / `0` to the `*_on` files to play with the display.
 And we can write to the buffer ourselves, though how it works is not yet clear.
 Playing around showed that the display panel really supports colors. :rainbow:
 
+If you want to have some fun:
+
+```sh
+/etc/init.d/start_oledd stop
+echo 1 > /sys/class/display/oled/backlight_on
+echo 1 > /sys/class/display/oled/panel_on
+cat /dev/random > /sys/class/display/oled/oled_buffer
+```
+
+This will endlessly draw rectangles and show pixel garbage. Press Ctrl+C to stop.
+
 <details>
   <summary>DeviceTree excerpt</summary>
 
