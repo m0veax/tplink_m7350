@@ -112,7 +112,7 @@ Let's say we did the above for the first two sprites.
 - patch the resource file
 
 ```sh
-cp oled_res oled_res.hexed // keep a copy of the original
+cp oled_res oled_res.hexed # keep a copy of the original
 dd if=load_anim_100.raw bs=1 seek=78 conv=notrunc of=oled_res.hexed
 dd if=load_anim_101.raw bs=1 seek=2154 conv=notrunc of=oled_res.hexed
 ```
