@@ -37,7 +37,6 @@ struct Args {
 const META_SIZE: usize = 28;
 
 fn main() -> io::Result<()> {
-    println!("Hello, world!");
     let args = Args::parse();
     let file = args.file;
 
