@@ -63,7 +63,7 @@ struct SpriteMeta {
 
 ## conversion
 
-note: 128*128 bit = 128*128/8 bytes = 2048 bytes
+note: `128*128 bit = 128*128/8 bytes = 2048 bytes`
 
 - to bmp
 
