@@ -53,6 +53,7 @@ fn main() -> io::Result<()> {
     println!("Size: {size}, entries: {entries:?}");
 
     let mut pos = 2;
+    let mut count = 0;
     for _ in 0..entries {
         f.seek(SeekFrom::Start(pos))?;
         let buf = &mut [0u8; META_SIZE];
@@ -70,7 +71,11 @@ fn main() -> io::Result<()> {
         print!("{id} {len}; ");
 
         pos += (META_SIZE + len as usize) as u64;
+        count += 1;
     }
+
+    println!();
+    println!("{count}/{entries} entries parsed");
 
     Ok(())
 }
