@@ -1,68 +1,71 @@
 use clap::Parser;
-use std::fs::{self, File};
-use std::io::{self, prelude::*, SeekFrom};
+use std::{fs, io};
 
 /// Parse TP-Link oled_res file
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-
     /// File to read
     #[arg(index = 1)]
     file: String,
+
+    #[arg(index = 2)]
+    width: usize,
+
+    #[arg(index = 3)]
+    height: usize,
 }
 
-
-const width: usize = 9;
-const height: usize = 16;
-
-type Row = [bool;width];
-
-type Bitmap = [Row;height];
+type Row = Vec<bool>;
+type Bitmap = Vec<Row>;
 
 fn main() -> io::Result<()> {
     let args = Args::parse();
     let file = args.file;
+    let width = args.width;
+    let height = args.height;
 
-	/*
-    let mut f = File::open(file)?;
+    // TODO: Should we read image dimensions from file name?
+    let f = fs::File::open(file.clone())?;
     let m = f.metadata().unwrap();
-    let size = m.len();
-	*/
+    let size = m.len() as usize;
+    if width * height / 8 > size {
+        panic!("File is {size} bytes, {width}x{height} won't fit!");
+    }
 
-	let sprite: Vec<u8> = fs::read(file).unwrap();
+    let sprite: Vec<u8> = fs::read(file).unwrap();
 
-	let mut bitmap: Bitmap = [
-		[false;width];height
-	];
+    let mut bitmap: Bitmap = vec![Row::new(); height];
 
-	for row in 0..height {
+    for (row, r) in bitmap.iter_mut().enumerate() {
+        *r = vec![false; width];
+        for (col, e) in r.iter_mut().enumerate() {
+            let pos = row * width + col;
+            let byte = pos / 8;
+            let bit = 7 - (pos % 8);
+            let b = (sprite[byte] >> bit) & 1;
+            *e = b == 1;
+        }
+    }
 
-		for col in 0..width {
-			let byte =  (row * width) / 8;
-			let bit = (((row) * width) + col) % 8; // le magic
+    print!("┏");
+    for _ in 0..width {
+        print!("━");
+    }
+    println!("┓");
+    for y in bitmap.into_iter() {
+        print!("┃");
+        for x in y.into_iter() {
+            let c = if x { " " } else { "█" };
+            print!("{c}");
+        }
+        println!("┃");
+    }
+    print!("┗");
+    for _ in 0..width {
+        print!("━");
+    }
+    println!("┛");
 
-			println!("byte {byte:03}, bit {bit}, row {row:02}, column {col:02}");
-
-			bitmap[row][col] = ((sprite[byte] >> (8 - bit)) & 1) == 1;
-		}
-	}
-
-	for y in bitmap.into_iter() {
-
-
-		for x in y.into_iter() {
-
-			print!("{}", if x {
-				"#"
-			} else {
-				"O"
-			});
-		}
-		println!("");
-	}
-
-	Ok(())
-	
-
+    Ok(())
 }
