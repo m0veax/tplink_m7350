@@ -107,14 +107,20 @@ Now you can edit the bitmap file.
 convert load_anim_100.bmp -negate -depth 1 gray:load_anim_100.raw
 ```
 
-Let's say we did the above for the first two sprites.
+NOTE: This conversion does not work with all files due to image dimensions.
+If you rename the reource file to have the extension `.data`, you can open it
+in GIMP and choose image type "B&W 1 bit", then set the image dimensions. The
+preview should show the image already.
 
 - patch the resource file
 
+Let's say we have edited the first two sprites. We can patch them into the res
+file using `dd`. Provide the offsets via `seek` and the `conv=notrunc` setting.
+
 ```sh
 cp oled_res oled_res.hexed # keep a copy of the original
-dd if=load_anim_100.raw bs=1 seek=78 conv=notrunc of=oled_res.hexed
-dd if=load_anim_101.raw bs=1 seek=2154 conv=notrunc of=oled_res.hexed
+dd if=load_anim_100.raw of=oled_res.hexed bs=1 conv=notrunc seek=78
+dd if=load_anim_101.raw of=oled_res.hexed bs=1 conv=notrunc seek=2154
 ```
 
 And `adb push oled_res.hexed /etc/oled_res`. Enjoy! :tada:
