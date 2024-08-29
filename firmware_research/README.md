@@ -62,4 +62,13 @@ cmdline in it that we also see in-system, except for the additional trailing
 `androidboot.serialno=MDM9625 androidboot.baseband=msm`.
 To compare, run: `adb shell "cat /proc/cmdline"`.
 
-NOTE: Editing and fastboot-loading partition 10 did not change the cmdline.
+See also:
+https://web.archive.org/web/20160402060151/https://developer.qualcomm.com/qfile/28821/lm80-p0436-1_little_kernel_boot_loader_overview.pdf
+
+From Qualcomm's LK boot loader docs, we learn that `fastboot oem unlock` allows
+us to run `fastboot boot`. This works; see also `fastboot oem device-info`.
+
+Using a hex editor, we can modify the cmdline at the top of partition 10.
+For a simple test, change `ttyHSL0` into `ttyHSL1`. It won't matter for us.
+Then boot it: `fastboot boot mtd10ro`
+And lo and behold, you will now see `ttyHSL1` in the cmdline. :tada:
