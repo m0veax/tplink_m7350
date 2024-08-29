@@ -25,15 +25,15 @@ https://source.android.com/docs/core/architecture/partitions).
 |  0 | `0x00000000` | `0x00140000` | `sbl`        | Secondary Boot Loader     |
 |  1 | `0x00140000` | `0x00280000` | `mibib`      | Multi Image Boot Info Blk |
 |  2 | `0x00280000` | `0x00d80000` | `efs2`       | RAM file system           |
-|  3 | `0x00d80000` | `0x010e0000` | `sdi`        |   |
+|  3 | `0x00d80000` | `0x010e0000` | `sdi`        | Secure Debug Image        |
 |  4 | `0x010e0000` | `0x01440000` | `tz`         | Arm TrustZone firmware    |
 |  5 | `0x01440000` | `0x01500000` | `mba`        | Modem Boot Authenticator  |
 |  6 | `0x01500000` | `0x01860000` | `rpm`        | Resource Power Manager FW |
 |  7 | `0x01860000` | `0x04b20000` | `qdsp`       | Qualcomm DSP firmware     |
-|  8 | `0x04b20000` | `0x04b60000` | `pad`        |   |
+|  8 | `0x04b20000` | `0x04b60000` | `pad`        | Padding, empty (`ffff`)   |
 |  9 | `0x04b60000` | `0x04c40000` | `appsbl`     | Applications Bootloader   |
 | 10 | `0x04c40000` | `0x05680000` | `apps`       | Android image, kernel etc |
-| 11 | `0x05680000` | `0x056c0000` | `scrub`      |   |
+| 11 | `0x05680000` | `0x056c0000` | `scrub`      | empty (all `ffff`)        |
 | 12 | `0x056c0000` | `0x09820000` | `cache`      | Android cache (?)         |
 | 13 | `0x09820000` | `0x09c80000` | `misc`       | Android misc (?)          |
 | 14 | `0x09c80000` | `0x0a6e0000` | `recovery`   | U-Boot derivative (?)     |
