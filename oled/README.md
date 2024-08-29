@@ -118,3 +118,20 @@ dd if=load_anim_101.raw bs=1 seek=2154 conv=notrunc of=oled_res.hexed
 ```
 
 And `adb push oled_res.hexed /etc/oled_res`. Enjoy! :tada:
+
+## tools
+
+We have written a parser/extractor and a simple text viewer for the resource
+file. They are written in Rust. To build them:
+
+```sh
+cd ./tpl_oled_res_parser && cargo build --release
+cd ./tpl_oled_res_viewer && cargo build --release
+```
+
+Given the file `oled_res`, you can now run this script to extract and convert
+the sprites. It will print a sample. Check it out for adjustments you need.
+
+```sh
+sh convert.sh
+```
