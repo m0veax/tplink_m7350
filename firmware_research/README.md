@@ -51,7 +51,7 @@ up read protection on those ranges for security/obscurity reasons.
 Qualcomm document a flow that can be roughly mapped to the above partitions:
 https://www.qualcomm.com/news/onq/2017/01/secure-boot-and-image-authentication-mobile-tech
 
-Roughly: `mask ROM --> SPL --> Applications Bootloader --> OS`
+Roughly: `mask ROM --> SBL --> Applications Bootloader --> OS`
 
 The applications boot loader is apparently a derivative of Little Kernel (lk).
 See https://github.com/littlekernel/lk/blob/7538a6df673de6b73221fdbd1045928615673413/top/main.c#L84
