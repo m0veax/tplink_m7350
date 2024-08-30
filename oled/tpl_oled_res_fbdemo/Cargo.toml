@@ -1,0 +1,4 @@
+[package]
+name = "tpl_oled_res_fbdemo"
+version = "0.1.0"
+edition = "2021"
