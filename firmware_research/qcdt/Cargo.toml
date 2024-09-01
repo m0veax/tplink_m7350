@@ -1,0 +1,9 @@
+[package]
+name = "qcdt"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.16", features = ["derive"] }
+zerocopy = "0.7.35"
+zerocopy-derive = "0.7.35"
