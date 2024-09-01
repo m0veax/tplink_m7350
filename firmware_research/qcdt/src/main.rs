@@ -1,11 +1,16 @@
 use clap::Parser;
-use std::fs::{self, File};
+use std::fs::File;
 use std::io::{self, prelude::*, SeekFrom};
-use std::slice::from_raw_parts;
 use zerocopy::FromBytes;
 use zerocopy_derive::{AsBytes, FromBytes, FromZeroes};
 
 /// Parse QCDT file
+///
+/// See also:
+/// - https://wiki.postmarketos.org/wiki/QCDT
+/// - https://wiki.postmarketos.org/wiki/Dtbtool
+/// - https://github.com/loicpoulain/skales
+/// - https://github.com/rajatgupta1998/android_tools_system_dtbTool
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -26,6 +31,7 @@ struct Args {
     dest: String,
 }
 
+/// Based on `rajatgupta1998/android_tools_system_dtbTool` `source/dtbtool.txt`
 #[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
 #[repr(C)]
 struct QcdtHeader {
