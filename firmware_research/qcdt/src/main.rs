@@ -13,6 +13,7 @@ mod util;
 /// - https://wiki.postmarketos.org/wiki/Dtbtool
 /// - https://github.com/loicpoulain/skales
 /// - https://github.com/rajatgupta1998/android_tools_system_dtbTool
+/// - https://github.com/s0be/dtimgextract
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -33,7 +34,7 @@ struct Args {
     dest: String,
 }
 
-/// Based on `rajatgupta1998/android_tools_system_dtbTool` `source/dtbtool.txt`
+/// Based on s0be/dtimgextract
 #[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
 #[repr(C)]
 struct QcdtHeader {
@@ -42,11 +43,10 @@ struct QcdtHeader {
     entry_count: u32,
 }
 
-/// Based on `rajatgupta1998/android_tools_system_dtbTool` `source/dtbtool.txt`,
-/// but without SoC revision and PMIC fields.
+/// Based on s0be/dtimgextract
 #[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
 #[repr(C)]
-struct QcdtEntry {
+struct QcdtEntryV1 {
     platform_id: u32,
     variant_id: u32,
     subtype_id: u32,
@@ -54,15 +54,26 @@ struct QcdtEntry {
     size: u32,
 }
 
-/// Based on `rajatgupta1998/android_tools_system_dtbTool` `source/dtbtool.txt`,
-/// but apparently not what we are facing.
+/// Based on s0be/dtimgextract
 #[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
 #[repr(C)]
-struct QcdtEntryX {
+struct QcdtEntryV2 {
+    platform_id: u32,
+    variant_id: u32,
+    sec_rev: u32,
+    unknown: u32,
+    offset: u32,
+    size: u32,
+}
+
+/// Based on s0be/dtimgextract
+#[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
+#[repr(C)]
+struct QcdtEntryV3 {
     platform_id: u32,
     variant_id: u32,
     subtype_id: u32,
-    soc_rev: u32,
+    sec_rev: u32,
     pmic0: u32,
     pmic1: u32,
     pmic2: u32,
@@ -75,7 +86,7 @@ struct QcdtEntryX {
 #[repr(C)]
 struct Qcdt<'a> {
     header: QcdtHeader,
-    entries: &'a Vec<QcdtEntry>,
+    entries: &'a Vec<QcdtEntryV1>,
 }
 
 const DT_MAGIC: u32 = 0xd00d_feed;
@@ -96,15 +107,13 @@ fn main() -> io::Result<()> {
     let buf = &mut [0u8; 12];
     let _ = f.read(buf);
     let header = QcdtHeader::read_from_prefix(buf).unwrap();
-    if print {
-        println!("{header:#010x?}");
-    }
+    println!("{header:#010x?}");
 
-    let mut entries: Vec<QcdtEntry> = vec![];
+    let mut entries: Vec<QcdtEntryV1> = vec![];
     for _ in 0..header.entry_count {
         let buf = &mut [0u8; 20];
         let _ = f.read(buf);
-        let entry = QcdtEntry::read_from_prefix(buf).unwrap();
+        let entry = QcdtEntryV1::read_from_prefix(buf).unwrap();
         entries.push(entry);
     }
 
@@ -114,18 +123,13 @@ fn main() -> io::Result<()> {
     };
 
     for (i, e) in qcdt.entries.iter().enumerate() {
-        let QcdtEntry {
+        let QcdtEntryV1 {
             platform_id,
             variant_id,
             subtype_id,
             offset,
             size,
         } = e;
-        println!();
-        println!(
-            "Entry {i:02}: platform {platform_id}, variant {variant_id}, subtype {subtype_id:x}"
-        );
-        println!("  offset {offset:08x}, size {size:08x}");
 
         f.seek(SeekFrom::Start(*offset as u64)).unwrap();
 
@@ -141,7 +145,15 @@ fn main() -> io::Result<()> {
         let buf = &mut [0u8; 4];
         let _ = f.read(buf);
         let sz = u32::from_be_bytes(*buf);
-        println!("  DTB is really {sz} (0x{sz}) bytes");
+
+        if print {
+            println!();
+            println!(
+            "Entry {i:02}: platform {platform_id}, variant {variant_id}, subtype {subtype_id:x}"
+        );
+            println!("  offset {offset:08x}, size {size:08x}");
+            println!("  DTB is really {sz} (0x{sz}) bytes");
+        }
 
         if extract {
             let dtb_name = format!("{dest}/{i:02}@{offset:08x}.dtb");
