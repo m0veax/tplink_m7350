@@ -4,6 +4,8 @@ use std::io::{self, prelude::*, SeekFrom};
 use zerocopy::FromBytes;
 use zerocopy_derive::{AsBytes, FromBytes, FromZeroes};
 
+mod util;
+
 /// Parse QCDT file
 ///
 /// See also:
@@ -27,7 +29,7 @@ struct Args {
     file: String,
 
     // output directory
-    #[arg(index = 2, default_value = "./res")]
+    #[arg(index = 2, default_value = "./dtbs")]
     dest: String,
 }
 
@@ -37,12 +39,26 @@ struct Args {
 struct QcdtHeader {
     magic: [u8; 4],
     version: u32,
-    dt_count: u32,
+    entry_count: u32,
 }
 
+/// Based on `rajatgupta1998/android_tools_system_dtbTool` `source/dtbtool.txt`,
+/// but without SoC revision and PMIC fields.
 #[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
 #[repr(C)]
 struct QcdtEntry {
+    platform_id: u32,
+    variant_id: u32,
+    subtype_id: u32,
+    offset: u32,
+    size: u32,
+}
+
+/// Based on `rajatgupta1998/android_tools_system_dtbTool` `source/dtbtool.txt`,
+/// but apparently not what we are facing.
+#[derive(AsBytes, FromBytes, FromZeroes, Clone, Copy, Debug)]
+#[repr(C)]
+struct QcdtEntryX {
     platform_id: u32,
     variant_id: u32,
     subtype_id: u32,
@@ -62,6 +78,8 @@ struct Qcdt<'a> {
     entries: &'a Vec<QcdtEntry>,
 }
 
+const DT_MAGIC: u32 = 0xd00d_feed;
+
 fn main() -> io::Result<()> {
     let args = Args::parse();
     let file = args.file;
@@ -69,33 +87,25 @@ fn main() -> io::Result<()> {
     let print = args.print;
     let extract = args.extract;
 
-    println!("Parsing {file}");
-
-    let mut f = File::open(file)?;
+    let mut f = File::open(file.clone())?;
     let m = f.metadata().unwrap();
     let size = m.len();
 
-    // read header
+    println!("Parsing {file} ({size} bytes)");
+
     let buf = &mut [0u8; 12];
     let _ = f.read(buf);
+    let header = QcdtHeader::read_from_prefix(buf).unwrap();
+    if print {
+        println!("{header:#010x?}");
+    }
 
-    let mut header = QcdtHeader::read_from_prefix(buf).unwrap();
-    // apparently, this is ASCII (?) - we get 0x37 where it should be 7...
-    header.dt_count -= 0x30;
-
-    // entries ...
     let mut entries: Vec<QcdtEntry> = vec![];
-
-    loop {
-        let buf = &mut [0u8; 40];
+    for _ in 0..header.entry_count {
+        let buf = &mut [0u8; 20];
         let _ = f.read(buf);
-
         let entry = QcdtEntry::read_from_prefix(buf).unwrap();
         entries.push(entry);
-
-        if entry.size == 0 {
-            break;
-        }
     }
 
     let qcdt: Qcdt = Qcdt {
@@ -103,25 +113,41 @@ fn main() -> io::Result<()> {
         entries: &entries,
     };
 
-    println!("{qcdt:#010x?}");
+    for (i, e) in qcdt.entries.iter().enumerate() {
+        let QcdtEntry {
+            platform_id,
+            variant_id,
+            subtype_id,
+            offset,
+            size,
+        } = e;
+        println!();
+        println!(
+            "Entry {i:02}: platform {platform_id}, variant {variant_id}, subtype {subtype_id:x}"
+        );
+        println!("  offset {offset:08x}, size {size:08x}");
 
-    println!("{}", qcdt.entries.len());
+        f.seek(SeekFrom::Start(*offset as u64)).unwrap();
 
-    const PAGE_SIZE: u64 = 2048;
-    // seek to next page boundary
-    let pos = f
-        .stream_position()
-        .expect("Could not get current position!");
-    let pad = ((pos as f64 / PAGE_SIZE as f64).round()) as u64 * PAGE_SIZE - pos;
+        // now we should find a DTB
+        let buf = &mut [0u8; 4];
+        let _ = f.read(buf);
 
-    f.seek(SeekFrom::Current(pad as i64)).unwrap();
+        let first4 = u32::from_be_bytes(*buf);
+        if first4 != DT_MAGIC {
+            panic!("    {first4:08x} @ 0x{offset:08x} != 0x{DT_MAGIC:08}");
+        }
 
-    // now we should find a DTB
-    let buf = &mut [0u8; 4];
-    let _ = f.read(buf);
+        let buf = &mut [0u8; 4];
+        let _ = f.read(buf);
+        let sz = u32::from_be_bytes(*buf);
+        println!("  DTB is really {sz} (0x{sz}) bytes");
 
-    let d00dfeed = u32::from_be_bytes(*buf);
-    assert!(d00dfeed == 0xd00d_feed);
+        if extract {
+            let dtb_name = format!("{dest}/{i:02}@{offset:08x}.dtb");
+            todo!("extract DTB to {dtb_name}...");
+        }
+    }
 
     Ok(())
 }
