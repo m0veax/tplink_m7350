@@ -109,6 +109,11 @@ fn main() -> io::Result<()> {
     let header = QcdtHeader::read_from_prefix(buf).unwrap();
     println!("{header:#010x?}");
 
+    let v = header.version;
+    if v != 1 {
+        panic!("version {v} not yet supported");
+    }
+
     let mut entries: Vec<QcdtEntryV1> = vec![];
     for _ in 0..header.entry_count {
         let buf = &mut [0u8; 20];
