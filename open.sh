@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 nonce=$(curl -s 'http://192.168.0.1/cgi-bin/qcmap_auth' -X POST  -d '{"module":"authenticator","action":0}' | jq -r .nonce)
-md5=$(printf "%s:%s:%s" admin admin "$nonce" | md5sum | cut "-d " -f1)
+md5=$(printf "%s:%s:%s" ${1-admin} ${2-admin} "$nonce" | md5sum | cut "-d " -f1)
 printf "Nonce: %s\nMD5: %s\n" "$nonce" "$md5"
 
 token=$(curl -s 'http://192.168.0.1/cgi-bin/qcmap_auth' -d '{"module":"authenticator","action":1,"digest":"'"$md5"'"}' | jq -r .token)

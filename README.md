@@ -261,7 +261,9 @@ In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which 
 
 More about this [here](webinterface_rce_telnet/README.md)
 
-We implemented a [command line tool](tp-opener/README.md)
+We implemented a [rust command line tool](tp-opener/README.md) and a [curl based shell script](open.sh).
+
+With [open.sh](open.sh) the login is done automaticly.
 
 There is a ruby implementation too [https://github.com/ecdsa521/tpown/tree/main](https://github.com/ecdsa521/tpown/tree/main)
 
