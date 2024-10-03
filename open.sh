@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 nonce=$(curl -s 'http://192.168.0.1/cgi-bin/qcmap_auth' -X POST  -d '{"module":"authenticator","action":0}' | jq -r .nonce)
-md5=$(printf "%s:%s:%s" ${1-admin} ${2-admin} "$nonce" | md5sum | cut "-d " -f1)
+if [[ $(uname) == 'Linux' ]]; then
+    md5=$(printf "%s:%s:%s" ${1-admin} ${2-admin} "$nonce" | md5sum | cut "-d " -f1)
+elif [[ $(uname) == 'Darwin' ]]; then
+    md5=$(printf "%s:%s:%s" ${1-admin} ${2-admin} "$nonce" | md5 | cut "-d " -f1)
+fi
 printf "Nonce: %s\nMD5: %s\n" "$nonce" "$md5"
 
 token=$(curl -s 'http://192.168.0.1/cgi-bin/qcmap_auth' -d '{"module":"authenticator","action":1,"digest":"'"$md5"'"}' | jq -r .token)
@@ -13,5 +17,9 @@ curl -s 'http://192.168.0.1/cgi-bin/qcmap_web_cgi' -b "tpweb_token=$token" -d '{
 
 echo Done.
 
-(stty -icanon -echo; nc -O1 192.168.0.1 23)
+if [[ $(uname) == 'Linux' ]]; then
+    (stty -icanon -echo; nc -O1 192.168.0.1 23)
+elif [[ $(uname) == 'Darwin' ]]; then
+    (stty -icanon -echo; nc -O 192.168.0.1 23)
+fi
 stty icanon echo
