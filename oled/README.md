@@ -141,3 +141,27 @@ the sprites. It will print a sample. Check it out for adjustments you need.
 ```sh
 sh convert.sh
 ```
+
+## example: change the app qr code
+
+the QR code found in the menu is image 2431, at offset 316970
+
+it can be replaced with another qr code in 128x128 bit format with 
+```sh
+dd if=qr_bits.data of=./oled_res bs=1 conv=notrunc seek=316970
+```
+
+Generating a QR code in this format can be done with the script qr_code_128.py, with the string to encode as argument, e.g.
+```sh
+python qr_code_128.py "https://random-web.site"
+```
+This will generate the qr_bits.data file.
+
+The file can then be patched into oled_res, and the oled_res then pushed via adb.
+
+Updating interface is done on the adb shell via
+```sh
+/etc/init.d/start_oledd restart
+```
+
+Now, the new QR code can be found on the device.
