@@ -4,6 +4,10 @@ TP Link Router M7350 v3
 
 CPU in v3: Qualcomm MSM 9625 (Flattened Device Tree), model: Qualcomm MSM 9625V2.1 MTP
 
+There are later hardware revisions:
+
+- [M7350 v4](README-v4.md)
+
 # Community
 
 Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=yip.gay&via=matrix.org&via=chaospott.de)
@@ -37,9 +41,9 @@ Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=
 
 ## Photos
 
-![up](assets/up.jpg)
+![top](assets/v3-top.jpg)
 
-![down](assets/down.jpg)
+![bottom](assets/v3-bottom.jpg)
 
 ## Notes
 
