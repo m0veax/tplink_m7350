@@ -13,8 +13,8 @@ https://pallavaggarwal.in/2023/11/08/quectel-ec25-cellular-modem-teardown/).
 
 ## Photos
 
-![top](assets/v3-top.jpg)
+![top](assets/v4-top.jpg)
 
-![bottom](assets/v3-bottom.jpg)
+![bottom](assets/v4-bottom.jpg)
 
-![display](assets/display.jpg)
+![display](assets/display-side.jpg)
