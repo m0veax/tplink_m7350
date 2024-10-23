@@ -1,8 +1,8 @@
-# Makefile to compile hello.c for ARM, remove old file, push new file to device and run it
+# Makefile to compile mandel.c for ARM, remove old file, push new file to device and run it
 
 # Variables
-TARGET = hello
-SOURCE = hello.c
+TARGET = mandel
+SOURCE = mandel.c
 CC = arm-linux-gnueabihf-gcc
 ADB = adb
 DEVICE_PATH = /home/root/$(TARGET)
@@ -12,9 +12,9 @@ DEVICE_PATH = /home/root/$(TARGET)
 # Default target
 all: clean compile push run
 
-# Clean up any existing hello binary
+# Clean up any existing mandel binary
 clean:
-	@echo "Removing existing hello binary..."
+	@echo "Removing existing mandel binary..."
 	@rm -f $(TARGET)
 
 # Compile the source file
@@ -29,12 +29,12 @@ push:
 
 # Push the new binary to the device
 push:
-	@echo "Pushing new hello binary to device..."
+	@echo "Pushing new mandel binary to device..."
 	$(ADB) push $(TARGET) $(DEVICE_PATH)
 
 # Run the new binary on the device
 run:
-	@echo "Running hello on the device..."
+	@echo "Running mandel on the device..."
 	$(ADB) shell $(DEVICE_PATH)
 
 # Clean up
