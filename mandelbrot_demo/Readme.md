@@ -1,6 +1,6 @@
 # Mandelbrot Display Demo
 
-This is a simple demo containing a source, a demo makefile with a binary, and an strace binary to test the display output. 
+This is a simple demo containing a demo source and makefile
 
 ## Important Notes
 - This has been tested with the stock firmware, meaning no colors and no bit depth whatsoever.
