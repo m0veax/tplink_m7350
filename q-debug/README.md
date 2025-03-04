@@ -11,6 +11,7 @@
 - https://zerodayengineering.com/research/slides/CCC2020_AdvancedHexagonDiag.pdf
 - https://github.com/openpst/qcdm
 - https://github.com/srlabs/snoopsnitch
+- https://fahrplan.events.ccc.de/congress/2011/Fahrplan/attachments/2022_11-ccc-qcombbdbg.pdf
 
 ## WIP
 
@@ -73,3 +74,6 @@ more about `/dev/diag` on Page 42 in the same PDF
 
 [`SnoopSnitch`](https://github.com/srlabs/snoopsnitch) can enable protocol dumps by sending an obscure blob of QCDM commands
 
+https://github.com/srlabs/snoopsnitch/blob/master/SnoopSnitch/app/src/main/java/de/srlabs/snoopsnitch/qdmon/SetupLoggingCmds.java#L3
+
+Referenced talk is https://fahrplan.events.ccc.de/congress/2011/Fahrplan/attachments/2022_11-ccc-qcombbdbg.pdf
