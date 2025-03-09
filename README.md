@@ -19,6 +19,7 @@ Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=
   - [Photos](#photos)
   - [Notes](#notes)
     - [fastboot](#fastboot)
+    - [mount sd card](#sdcard)
     - [Firmware](#firmware)
       - [binwalk](#binwalk)
     - [Findings](#findings)
@@ -108,6 +109,27 @@ The following `getvar` commands yield results:
 | `max-download-size` | `0x2f00000`      |
 | `product`           | `MDM9625`        |
 | `serialno`          | `MDM9625`        |
+
+### sdcard
+
+A sdcard needs to be fat32
+
+`sudo mkfs.vfat -F 32 /dev/mmcblk0`
+
+afterwards per `adb shell` on the device
+
+`mount /dev/mmcblk0p1 /mnt/`
+
+you can access the sdcard per `mnt` now
+
+Bonus:
+
+```
+> usb_composition 
+> 902B
+```
+
+Your SD Card will be served as usb device afterwards
 
 ### Display
 
