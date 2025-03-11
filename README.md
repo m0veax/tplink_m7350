@@ -12,6 +12,10 @@ There are later hardware revisions:
 
 Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=yip.gay&via=matrix.org&via=chaospott.de)
 
+# related projects
+
+[Porting rayhunter](https://github.com/m0veax/rayhunter-tplink-m7350) - [upstream rayhunter repository](https://github.com/EFForg/rayhunter)
+
 ## TOC
 
 - [Device Infos](#device-infos)
