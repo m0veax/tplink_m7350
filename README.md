@@ -168,8 +168,10 @@ It accesses the OLED display via sysfs:
 - `/sys/class/display/oled/panel_on`
 - `/sys/class/display/oled/oled_buffer`
 
-We can echo `1` / `0` to the `*_on` files to play with the display.
-And we can write to the buffer ourselves, though how it works is not yet clear.
+We can echo `1` / `0` to the `*_on` files to play with the display. And we can
+write to the buffer ourselves, see [mandelbrot_demo](./mandelbrot_demo/) and
+[oled](./oled/).
+
 Playing around showed that the display panel really supports colors. :rainbow:
 
 If you want to have some fun:
