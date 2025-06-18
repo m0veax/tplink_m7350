@@ -46,9 +46,24 @@ Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=
 
 ## Photos
 
+<details>
+<summary>v3 teardown</summary>
+
 ![top](assets/v3-top.jpg)
 
 ![bottom](assets/v3-bottom.jpg)
+
+</details>
+
+
+<details>
+<summary>v9 teardown</summary>
+
+![top](assets/v9-top.jpg)
+
+![bottom](assets/v9-bottom.jpg)
+
+</details>
 
 ## Notes
 
