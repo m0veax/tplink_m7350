@@ -72,3 +72,23 @@ Using a hex editor, we can modify the cmdline at the top of partition 10.
 For a simple test, change `ttyHSL0` into `ttyHSL1`. It won't matter for us.
 Then boot it: `fastboot boot mtd10ro`
 And lo and behold, you will now see `ttyHSL1` in the cmdline. :tada:
+
+## Boot image
+
+`binwalk mtd10ro`
+
+```
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             Android bootimg, kernel size: 3564792 bytes, kernel addr: 0x308000, ramdisk size: 0 bytes, ramdisk addr: 0x308000, product name: ""
+2048          0x800           Linux kernel ARM boot executable zImage (little-endian)
+18403         0x47E3          gzip compressed data, maximum compression, from Unix, last modified: 1970-01-01 00:00:00 (null date)
+3567616       0x367000        Qualcomm device tree container, version: 1, DTB entries: 55
+3569664       0x367800        Flattened device tree, size: 49302 bytes, version: 17
+3620864       0x374000        Flattened device tree, size: 49218 bytes, version: 17
+3672064       0x380800        Flattened device tree, size: 49088 bytes, version: 17
+3721216       0x38C800        Flattened device tree, size: 48730 bytes, version: 17
+3770368       0x398800        Flattened device tree, size: 49193 bytes, version: 17
+3821568       0x3A5000        Flattened device tree, size: 48516 bytes, version: 17
+3870720       0x3B1000        Flattened device tree, size: 47693 bytes, version: 17
+```

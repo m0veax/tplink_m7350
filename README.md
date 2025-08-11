@@ -1,120 +1,100 @@
-# Device Infos
+# TP-Link M7350
 
-TP Link Router M7350 v3
+The [TP-Link M7350](http://www.tp-link.de/products/details/cat-5032_M7350.html)
+is a series of portable 4G routers roughly equivalent to the Orbic RC400L as
+found in the US and also used for the [Rayhunter project](
+https://efforg.github.io/rayhunter/supported-devices.html).
 
-CPU in v3: Qualcomm MSM 9625 (Flattened Device Tree), model: Qualcomm MSM 9625V2.1 MTP
+## Device infos
 
-There are later hardware revisions:
+The devices are generally based on Qualcomm SoCs.
 
+There are multiple hardware revisions. We have taken them apart and added
+photos, notes on specific parts and possible hardware modification:
+
+- [M7350 v3](README-v3.md)
 - [M7350 v4](README-v4.md)
+- [M7350 v9](README-v9.md)
 
-# Community
+## OEM support
+
+Note that the sources are a bit messy. For example, we have found the display
+driver for earlier devices to be in the v2 and v4 tarballs, but not in v3.
+
+- <https://www.tp-link.com/en/support/download/m7350/>
+- <https://archive.org/download/tp-link-gpl-source/LTE/M7350/>
+
+## Community
 
 Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=yip.gay&via=matrix.org&via=chaospott.de)
 
-# related projects
+## Related projects
 
-[Porting rayhunter](https://github.com/m0veax/rayhunter-tplink-m7350) - [upstream rayhunter repository](https://github.com/EFForg/rayhunter)
+- [Rayhunter repository](https://github.com/EFForg/rayhunter)
+    - [porting to the M7350](https://github.com/m0veax/rayhunter-tplink-m7350)
 
 ## TOC
 
 - [Device Infos](#device-infos)
-  - [TOC](#toc)
-  - [Photos](#photos)
-  - [Notes](#notes)
+- [OEM support](#oem-support)
+- [TOC](#toc)
+- [Notes](#notes)
     - [fastboot](#fastboot)
-    - [mount sd card](#sdcard)
+    - [mount SD card](#sdcard)
     - [Firmware](#firmware)
-      - [binwalk](#binwalk)
-    - [Findings](#findings)
-      - [`./system/etc/{passwd-,shadow}`](#systemetcpasswd-shadow)
-      - [`./system/etc/lighttpd.user`](#systemetclighttpduser)
-      - [`./system/sbin`](#systemsbin)
-      - [`./META-INF/com/google/android/updater-script`](#meta-infcomgoogleandroidupdater-script)
-      - [Webinterface RCE to start telnet](#webinterface-rce-to-start-telnet)
+        - [`./system/etc/{passwd-,shadow}`](#systemetcpasswd-shadow)
+        - [`./system/etc/lighttpd.user`](#systemetclighttpduser)
+        - [`./system/sbin`](#systemsbin)
+        - [`./META-INF/com/google/android/updater-script`](#meta-infcomgoogleandroidupdater-script)
+        - [Webinterface RCE to start telnet](#telnet)
     - [.dtb files](#dtb-files)
     - [Testpoint and Bootpoint PBL](#testpoint-and-bootpoint-pbl)
     - [Backup methods](#backup-methods)
     - [Start adbd](#start-adbd)
     - [Stop adbd](#stop-adbd)
-  - [TODO](#todo)
-  - [Weblinks](#weblinks)
-    - [OpenWRT Board](#openwrt-board)
+- [TODO](#todo)
+- [Weblinks](#weblinks)
+    - [OpenWRT discussions](#openwrt-discussions)
     - [4pda](#4pda)
-    - [OEM](#oem)
-    - [Sourcecode](#sourcecode)
-
-## Photos
-
-<details>
-<summary>v3 teardown</summary>
-
-![top](assets/v3-top.jpg)
-
-![bottom](assets/v3-bottom.jpg)
-
-</details>
-
-
-<details>
-<summary>v9 teardown</summary>
-
-![top](assets/v9-top.jpg)
-
-![bottom](assets/v9-bottom.jpg)
-
-</details>
 
 ## Notes
-
-### board components
-
-SoC: [Qualcomm MDM9225](https://www.qualcomm.com/products/technology/modems/snapdragon-modems-4g-lte-x5)
 
 Quick note on Qualcomm terms:
 - MDM is [_Mobile Data Modem_](https://www.qualcomm.com/news/releases/2011/02/qualcomm-delivers-faster-mobile-broadband-experience-new-higher-speed-lte)
 - MSM is [_Mobile Station Modem_](https://www.qualcomm.com/news/releases/1997/03/qualcomm-announces-next-generation-mobile-station-modem)
 
-Flash: 2Gbit (256MB) [Winbond W71NW20GF3FW](https://www.winbond.com/hq/product/code-storage-flash-memory/nand-based-mcp/index.html?__locale=en&partNo=W71NW20GF3FW)
+## Kernel
 
-mobile wireless: [Skyworks SKY77629](https://www.skyworksinc.com/Products/Amplifiers/SKY77629)
-
-### kernel
-
-Based on the official sources from kernel.org and with vendor code `rsync`ed
-over, we are working on getting this to build in 2024.
+Based on the [official Linux kernel sources](https://kernel.org/) and with
+vendor code `rsync`ed over, we are working on getting them to build in 2025.
 
 <https://github.com/m0veax/tplink_m7350-kernel>
 
-A config from a real device: [`kernel/config`](kernel/config)
+A config from a real v3 device: [`kernel/config`](kernel/config)
 
-### fastboot
+## fastboot
 
-If you remove the battery and plugin USB, lsusb shows:
+If you remove the battery and plugin USB, `lsusb` briefly shows:
 
 ```
 Bus 001 Device 031: ID 18d1:d00d Google Inc. Xiaomi Mi/Redmi 2 (fastboot)
 ```
 
+Then `fastboot devices` gets:
+
 ```
-> fastboot devices
 MDM9625	fastboot
-
 ```
 
-Above disappears after a few seconds.
+The device disappears after a few seconds.
 
-If you boot normal, it shows:
+If you boot normally, it shows:
 
 ```
 Bus 001 Device 032: ID 2357:0005 TP-Link M7350 4G Mi-Fi Router
 ```
 
-Enter fastboot without bootloop
-
-```
-fastboot reboot bootloader
-```
+To enter fastboot permanently (until reset), run `fastboot reboot bootloader`.
 
 Qualcomm [documents their fastboot commands](
 https://docs.qualcomm.com/bundle/publicresource/topics/80-70014-4/fastboot.html).
@@ -129,17 +109,18 @@ The following `getvar` commands yield results:
 | `product`           | `MDM9625`        |
 | `serialno`          | `MDM9625`        |
 
-### sdcard
+You can use `fastboot` to [run a custom kernel](firmware_research/README.md).
 
-A sdcard needs to be fat32
+## sdcard
 
-`sudo mkfs.vfat -F 32 /dev/mmcblk0`
+An SD card with the stock system needs to be FAT32 formatted:
 
-afterwards per `adb shell` on the device
+```sh
+sudo mkfs.vfat -F 32 /dev/mmcblk0
+```
 
-`mount /dev/mmcblk0p1 /mnt/`
-
-you can access the sdcard per `mnt` now
+Afterwards, via `adb shell`, run `mount /dev/mmcblk0p1 /mnt/` on the device, and
+you can access the SD card at `/mnt/` now.
 
 Bonus:
 
@@ -150,169 +131,54 @@ Bonus:
 
 Your SD Card will be served as usb device afterwards
 
-### Display
+## Firmware
 
-The display is attached to the SPI bus via the controller at `0xf992_4000`.
-We could extract that information from the device trees.
+The main system seems to be based on Android, however without `/dev/binder`.
 
-The SPI controller compat string is `qcom,spi-qup-v2`.
-In the vendor kernel, the SPI driver is `drivers/spi/spi_qsd.c`.
-In mainline Linux, it is `drivers/spi/spi-qup.c`.
+We have extracted the root file system for a better understanding.
 
-The OLED display is called
-- `tplink,oleds90319` (node behind `qcom,spi-qup-v2`)
-- `tp,oled_pt` -> `qcom,oled_s90319_pt`
+See [more detailed notes on the firmware](firmware_research/README.md) from
+further research regarding other partitions.
 
-Indeed, the side of the display (white frame) reads: `BLB-S90319B-1`
-
-There is no such thing in the vendor kernel sources, nor do Google or Bing yield
-anything. So it is unclear what exactly the display driver is.
-It looks like a 128x128 monochrome display, similar to _SSD1306_ / _SH1107_.
-
-From the kernel config we dumped:
-```
-CONFIG_OLED=y
-# CONFIG_OLED_SSD1306_PT is not set
-CONFIG_OLED_S90319_PT=y
-```
-
-The binary `/usr/bin/oledd` is started via `/etc/init.d/start_oledd`.
-It accesses the OLED display via sysfs:
-
-- `/sys/class/display/oled/backlight_on`
-- `/sys/class/display/oled/panel_on`
-- `/sys/class/display/oled/oled_buffer`
-
-We can echo `1` / `0` to the `*_on` files to play with the display. And we can
-write to the buffer ourselves, see [mandelbrot_demo](./mandelbrot_demo/) and
-[oled](./oled/).
-
-Playing around showed that the display panel really supports colors. :rainbow:
-
-If you want to have some fun:
-
-```sh
-/etc/init.d/start_oledd stop
-echo 1 > /sys/class/display/oled/backlight_on
-echo 1 > /sys/class/display/oled/panel_on
-cat /dev/random > /sys/class/display/oled/oled_buffer
-```
-
-This will endlessly draw rectangles and show pixel garbage. Press Ctrl+C to stop.
-
-<details>
-  <summary>DeviceTree excerpt</summary>
-
-```
-  spi@f9924000 {
-    compatible = "qcom,spi-qup-v2";
-    reg = <0xf9924000 0x1000>;
-    interrupts = <0x00 0x60 0x00>;
-    spi-max-frequency = <0x17d7840>;
-    #address-cells = <0x01>;
-    #size-cells = <0x00>;
-    gpios = <0x02 0x07 0x00 0x02 0x05 0x00 0x02 0x04 0x00>;
-    cs-gpios = <0x02 0x06 0x00>;
-
-    qcom-spi-oled@1 {
-      compatible = "tplink,oleds90319";
-      reg = <0x01>;
-      spi-max-frequency = <0x927c00>;
-    };
-  };
-
-  oled {
-    compatible = "tp,oled_pt";
-
-    qcom,oled_s90319 {
-      compatible = "qcom,oled_s90319_pt";
-      qcom,oled-cs-gpio = <0x02 0x06 0x00>;
-      qcom,oled-rsx-gpio = <0x02 0x15 0x00>;
-      qcom,oled-reset-gpio = <0x02 0x14 0x00>;
-      qcom,oled-vdd0-gpio = <0x02 0x16 0x00>;
-      qcom,oled-vdd1-gpio = <0x02 0x17 0x00>;
-      qcom,oled-boost-en-gpio = <0x02 0x3d 0x00>;
-    };
-  };
-```
-</details>
-
-<details>
-  <summary>kernel log excerpt</summary>
-
-```
-[    2.042245] s90319_spi_probe successed!
-[    2.045067] oled_90319_panel_init success.
-[    2.049204] oled_probe
-[    2.051692] oled_s90319_probe
-[    2.054716] oled init success!
-```
-</details>
-
-### Firmware
-
-Device seems to run Android, without `/dev/binder`. You can get the firmware here:
-
-[TP-Link Support Page](https://www.tp-link.com/de/support/download/m7350/#Firmware)
-
-The Firmware is not crypted. You are able to take a deeper look into the configs.
-
-#### binwalk
-
-```
-binwalk boot.img
-
-DECIMAL       HEXADECIMAL     DESCRIPTION
---------------------------------------------------------------------------------
-0             0x0             Android bootimg, kernel size: 3564792 bytes, kernel addr: 0x308000, ramdisk size: 0 bytes, ramdisk addr: 0x308000, product name: ""
-2048          0x800           Linux kernel ARM boot executable zImage (little-endian)
-18403         0x47E3          gzip compressed data, maximum compression, from Unix, last modified: 1970-01-01 00:00:00 (null date)
-3567616       0x367000        Qualcomm device tree container, version: 1, DTB entries: 55
-3569664       0x367800        Flattened device tree, size: 49302 bytes, version: 17
-3620864       0x374000        Flattened device tree, size: 49218 bytes, version: 17
-3672064       0x380800        Flattened device tree, size: 49088 bytes, version: 17
-3721216       0x38C800        Flattened device tree, size: 48730 bytes, version: 17
-3770368       0x398800        Flattened device tree, size: 49193 bytes, version: 17
-3821568       0x3A5000        Flattened device tree, size: 48516 bytes, version: 17
-3870720       0x3B1000        Flattened device tree, size: 47693 bytes, version: 17
-```
-
-### Findings
-
-#### `./system/etc/{passwd-,shadow}`
+### `./system/etc/{passwd-,shadow}`
 
 ```
 root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
 ```
 
-Quick search for the hash gives us `oelinux123` as a possible value. We need to check that later.
+A quick search for the hash gives us `oelinux123` as a possible value.
+We have confirmed this to be the password.
 
 Source: https://svson.xyz/posts/zte-dongle/part4/
 
-#### `./system/etc/lighttpd.user`
+### `./system/etc/lighttpd.user`
 
 ```
 admin:admin
 ```
 
-#### `./system/sbin`
+### `./system/sbin`
 
-Firmware seems to contain an `adbd`. We need to find a way to start it.
+The firmware contains an `adbd`. [ADB access](#start-adbd) can be obtained
+permanently.
 
-#### `./META-INF/com/google/android/updater-script`
+### `./META-INF/com/google/android/updater-script`
 
-Paths to Files and creating symlinks for autostart ect. Lets try to modify that to activate adb.
+This contains paths to files and creates symlinks for autostart etc.
 
-#### Webinterface RCE to start telnet
-In the linked 4pda forum thread is a poc for a Remote Code Execution vuln which allows to start the telnet daemon. There are only windows scripts linked right now. We should build a shellscript to invoke it.
+### telnet
+
+In the linked 4pda forum thread is a PoC for a Remote Code Execution (RCE)
+vulnerability which allows to start the telnet daemon. There are only Windows
+scripts linked right now. We have developed our own tools thusly.
 
 More about this [here](webinterface_rce_telnet/README.md)
 
-We implemented a [rust command line tool](tp-opener/README.md) and a [curl based shell script](open.sh).
+We implemented a [Rust command line tool](tp-opener/README.md) and a
+[curl based shell script](open.sh). The latter performs the login automaticly.
 
-With [open.sh](open.sh) the login is done automaticly.
-
-There is a ruby implementation too [https://github.com/ecdsa521/tpown/tree/main](https://github.com/ecdsa521/tpown/tree/main)
+There is a [Ruby implementation](https://github.com/ecdsa521/tpown/tree/main](
+https://github.com/ecdsa521/tpown/tree/main) as well.
 
 ### .dtb files
 
@@ -320,34 +186,32 @@ The .dtb files of HW rev v3 and v4 are stored in [dtb_files](dtb_files/) and can
 
 ### Testpoint and Bootpoint PBL
 
-There has been posted images on 4PDA to points in another revisions. Could be the same for our device. Take a look [here](assets/4pda/README.md)
+There are [photos on 4PDA from other variants of the same general board design](
+assets/4pda/README.md). They are similar for our device.
 
 ### Backup methods
 
-4PDA has found several ways to backup the installed firmware.
-
-[https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476](https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476)
+4PDA has found [several ways to backup the installed firmware](
+https://4pda.to/forum/index.php?showtopic=669936&view=findpost&p=110738476).
 
 ### Start adbd
 
+Via [telnet](#telnet), run the `usb_composition` command on the device as follows:
 
-```
+```sh
 usb_composition
 902B
 nyy
 ```
 
-persistent adbd connection should be etablished now
+Persistent `adbd` connection should be etablished now.
 
-Per cable on your client:
-
-```
-adb shell
-```
+Now via a USB cable on your laptop, `adb shell` will get you a shell.
 
 ### Stop adbd
 
-After a reboot, the access point seems to be down. So you need to deactivate adbd again
+After a reboot, the access point seems to be down.
+To deactivate `adbd` again:
 
 ```
 adb shell
@@ -355,7 +219,6 @@ usb_composition
 tplink
 nyy
 ```
-
 
 ## TODO
 
@@ -368,23 +231,15 @@ nyy
 - [x] Find a way to start `adbd`
 - [x] Link v3 Firmware instead of v4
 
-
 ## Weblinks
 
-### OpenWRT Board
-- http://forum.archive.openwrt.org/viewtopic.php?id=72055
-- http://forum.archive.openwrt.org/viewtopic.php?id=69257
-- https://forum.openwrt.org/t/add-support-for-tp-link-m7350-v4/132119
+### OpenWRT discussions
+
+- <http://forum.archive.openwrt.org/viewtopic.php?id=72055>
+- <http://forum.archive.openwrt.org/viewtopic.php?id=69257>
+- <https://forum.openwrt.org/t/add-support-for-tp-link-m7350-v4/132119>
 
 ### 4pda
-- https://4pda-to.translate.goog/forum/index.php?showtopic=669936&st=100&_x_tr_sl=auto&_x_tr_tl=de&_x_tr_hl=de&_x_tr_pto=wapp#entry95895999 (translated)
-- https://4pda.to/forum/index.php?showtopic=669936&st=100#entry95895999 (russian)
 
-### OEM
-
-- http://www.tp-link.de/products/details/cat-5032_M7350.html
-
-### Sourcecode
-
-- https://archive.org/download/tp-link-gpl-source/LTE/M7350/
-- https://static.tp-link.com/resources/gpl/M7350v3_en_gpl.tar.gz
+- <https://4pda-to.translate.goog/forum/index.php?showtopic=669936&st=100&_x_tr_sl=auto&_x_tr_tl=de&_x_tr_hl=de&_x_tr_pto=wapp#entry95895999> (translated)
+- <https://4pda.to/forum/index.php?showtopic=669936&st=100#entry95895999> (Russian)
