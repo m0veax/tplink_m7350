@@ -1,12 +1,10 @@
-# Device Infos
+# TP-Link M7350 v4
 
-TP Link Router M7350 v4
+- SoC: Qualcomm MDM 9607
 
-SoC: Qualcomm MDM 9607
+Note: This hardware revision has a different NAND flash than [v3](README-v3.md).
 
-This hardware revision has a different NAND flash than v3.
-
-The display is the same.
+The [display is the same](README-v3.md#display).
 
 The main SoC is on the top side, and similar to [this Quectel modem](
 https://pallavaggarwal.in/2023/11/08/quectel-ec25-cellular-modem-teardown/).
@@ -18,3 +16,7 @@ https://pallavaggarwal.in/2023/11/08/quectel-ec25-cellular-modem-teardown/).
 ![bottom](assets/v4-bottom.jpg)
 
 ![display](assets/display-side.jpg)
+
+## OEM sources
+
+- <https://static.tp-link.com/resources/gpl/M7350v4_en_gpl.tar.gz>
