@@ -17,7 +17,7 @@ mod util;
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// Print sprite metadata
+    /// Print entry summaries
     #[arg(required = false, short, long)]
     print: bool,
 
@@ -107,7 +107,7 @@ fn main() -> io::Result<()> {
     let buf = &mut [0u8; 12];
     let _ = f.read(buf);
     let header = QcdtHeader::read_from_prefix(buf).unwrap();
-    println!("{header:#010x?}");
+    println!("{header:?}");
 
     let v = header.version;
     if v != 1 {
@@ -157,7 +157,7 @@ fn main() -> io::Result<()> {
             "Entry {i:02}: platform {platform_id}, variant {variant_id}, subtype {subtype_id:x}"
         );
             println!("  offset {offset:08x}, size {size:08x}");
-            println!("  DTB is really {sz} (0x{sz}) bytes");
+            println!("  DTB is really {sz} (0x{sz:08x}) bytes");
         }
 
         if extract {
