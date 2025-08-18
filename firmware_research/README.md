@@ -65,6 +65,8 @@ To compare, run: `adb shell "cat /proc/cmdline"`.
 See also:
 https://web.archive.org/web/20160402060151/https://developer.qualcomm.com/qfile/28821/lm80-p0436-1_little_kernel_boot_loader_overview.pdf
 
+## Custom kernel
+
 From Qualcomm's LK boot loader docs, we learn that `fastboot oem unlock` allows
 us to run `fastboot boot`. This works; see also `fastboot oem device-info`.
 
