@@ -12,15 +12,83 @@ https://www.qualcomm.com/products/technology/modems/snapdragon-modems-4g-lte-x5)
 They were [announced in 2012](
 https://www.qualcomm.com/news/releases/2012/02/qualcomm-third-generation-lte-chipsets-are-first-support-hspa-release-10).
 
+It is confusing why the chip is sometimes called MDM and sometimes MSM.
+The package itself reads MDM.
+
+And it has also been [used by Apple](https://theapplewiki.com/wiki/MDM9625).
+
+## Mainline Linux
+
+There is no mainline support as of 2025-08-18, but for the MDM9615. It may be
+similar enough.
+
 ## OEM sources
 
 Note: The display is the same between v2, v3 and [v4](README-v4.md), but
 **the v3 sources do not include the display driver**.
-Besides some identifiers and prints, the code between v2 and v4 is the same, so
-you can take either.
+
+The [display](#display) driver is in `apps_proc/kernel/drivers/oled/`.
+
+Besides some identifiers and prints, the driver code between v2 and v4 is the
+same, so you can technically take either.
+
+However, the v2 and v3 kernels are both based on Linux 3.4.0, whereas v4 is
+based on 3.18.20, so better use the sources from v2 which also contain the
+device tree for the v3.
 
 - <https://static.tp-link.com/resources/gpl/M7350v2_en_gpl.tar.gz>
 - <https://static.tp-link.com/resources/gpl/M7350v3_en_gpl.tar.gz>
+
+### Build and run the kernel
+
+This requires the `fastboot` mechanism in the bootloader to be [unlocked](
+./firmware_research/README.md#custom-kernel).
+
+With the full vendor SDK based on OpenEmbedded and GCC 4, we were able to build
+a kernel (once) that boots fine. It still differs from the image we dumped from
+a real device. We are seeing a slight diff between the defconfig we dumped and
+the config generated via the defconfig in the sources, indicating that they are
+not exactly the same.
+
+Using only the [kernel sources](./kernel/README.md), some necessary fixes, the
+vendor defconfig and the latest Linaro GCC 4 toolchain, we have so far built a
+kernel that would crash and reset.
+With a reduced config and some hacks into the display driver, we confirmed that
+it ran.
+
+Note that you will need to create an Android image and include the QCDT.
+
+The `mkbootimg` tool is part of the [Android platform system tools](
+https://android.googlesource.com/platform/system/tools/mkbootimg/) and can be
+found as its own package on Ubuntu based systems and others.
+
+Use <https://github.com/rajatgupta1998/android_tools_system_dtbTool> to create
+the `qcdt.bin`:
+
+```sh
+dtbTool -s 2048 -o qcdt.bin -p kernel/scripts/dtc/ kernel/arch/arm/boot/
+```
+
+```sh
+QCDT=qcdt.bin
+KERNEL=kernel/arch/arm/boot/Image
+BOOTIMG=boot.img
+PREIMG=boot_pre.img
+
+# create Android image
+mkbootimg --header_version 0 --kernel $KERNEL -o $PREIMG \
+  --base 0x300000 --pagesize 2048 --tags_offset 0x6500000 \
+  --cmdline " noinitrd root=/dev/mtdblock17 rw rootfstype=yaffs2 console=ttyHSL0,115200,n8 androidboot.hardware=qcom ehci-hcd.park=3 g-android.rx_trigger_enabled=1"
+
+# concatenate with QCDT
+cat $PREIMG $QCDT > $BOOTIMG
+
+# field `unused` (dtb header version?) must be != 0
+echo -en '\0001' | dd of=$IMG bs=1 seek=40 conv=notrunc
+
+# run it
+fastboot boot $BOOTIMG
+```
 
 ## Photos
 
