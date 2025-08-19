@@ -14,6 +14,7 @@ photos, notes on specific parts and possible hardware modification:
 
 - [M7350 v3](README-v3.md)
 - [M7350 v4](README-v4.md)
+- [M7350 v5](README-v5.md)
 - [M7350 v6](README-v6.md)
 - [M7350 v8](README-v8.md)
 - [M7350 v9](README-v9.md)
