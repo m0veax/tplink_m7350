@@ -61,9 +61,17 @@ Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=
 
 ## Notes
 
-Quick note on Qualcomm terms:
+Qualcomm has different kinds of chips:
+
 - MDM is [_Mobile Data Modem_](https://www.qualcomm.com/news/releases/2011/02/qualcomm-delivers-faster-mobile-broadband-experience-new-higher-speed-lte)
 - MSM is [_Mobile Station Modem_](https://www.qualcomm.com/news/releases/1997/03/qualcomm-announces-next-generation-mobile-station-modem)
+- APQ is [_Application Processor_](https://www.qualcomm.com/products/technology/processors/application-processors/apq8053) 
+
+See also <https://www.qualcomm.com/products/technology/processors> and
+<https://www.ntia.gov/files/ntia/qc_comments_on_firstnet_noi.pdf>.
+
+The chips on the portable routers as described here are mostly MDMs.
+They are powerful enough for small applications.
 
 ## Kernel
 
