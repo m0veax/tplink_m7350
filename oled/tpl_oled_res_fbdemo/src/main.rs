@@ -3,13 +3,23 @@ use std::process::Command;
 use std::time::Duration;
 use std::{fs::File, thread::sleep};
 
-use bitmap_font::{tamzen::FONT_6x12, TextStyle};
-use embedded_graphics::{pixelcolor::BinaryColor, prelude::*, text::Text};
+use embedded_graphics::{
+    mono_font::{ascii::FONT_5X8 as FONT, MonoTextStyle},
+    pixelcolor::BinaryColor,
+    prelude::*,
+    text::Text,
+};
 
 #[cfg(any(target_arch = "arm"))]
 const DEV: &str = "/sys/class/display/oled/oled_buffer";
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
 const DEV: &str = "oled_buffer";
+
+// Full path, so that we can `cpu` without namespace issues.
+#[cfg(any(target_arch = "arm"))]
+const IP_CMD: &str = "/bbin/ip";
+#[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
+const IP_CMD: &str = "ip";
 
 const WRITE_TO_FILE: bool = true;
 const WRITE_TO_TERM: bool = true;
@@ -64,20 +74,20 @@ impl Display {
         }
     }
 
-    pub fn draw_pattern(&mut self) {
+    pub fn draw_pattern(&mut self, o: usize) {
         let mut b = [0u8; FB_SIZE];
 
         for i in 0..FB_SIZE {
-            if i % 3 == 0 {
+            if i % (o + 3) == 0 {
                 b[i] = 0b11110000;
             }
-            if i % 4 == 0 {
+            if i % (o + 4) == 0 {
                 b[i] = 0b01010101;
             }
-            if i % 5 == 0 {
+            if i % (o + 5) == 0 {
                 b[i] = 0b00001111;
             }
-            if i % 7 == 0 {
+            if i % (o + 7) == 0 {
                 b[i] = 0b10101010;
             }
         }
@@ -88,7 +98,6 @@ impl Display {
     pub fn clear(&mut self) {
         let b = [0xffu8; FB_SIZE];
         self.framebuffer = b;
-        self.flush();
     }
 }
 
@@ -124,16 +133,9 @@ impl OriginDimensions for Display {
     }
 }
 
-fn main() -> std::io::Result<()> {
-    let mut display = Display::new(DEV);
-
-    display.draw_pattern();
-    display.flush();
-
-    sleep(Duration::from_secs(1));
+fn print_ip_a(display: &mut Display) {
     display.clear();
-
-    let ipa = Command::new("ip").arg("a").output().unwrap().stdout;
+    let ipa = Command::new(IP_CMD).arg("a").output().unwrap().stdout;
     let ipa = str::from_utf8(&ipa).unwrap();
     // NOTE: We can only print a few characters per line.
     // The library will cut off extra pixels for us.
@@ -144,15 +146,24 @@ fn main() -> std::io::Result<()> {
         let min = l.len().min(3);
         l[min..].to_string()
     });
-    let out = lines.collect::<Vec<_>>()[..10].join("\n");
+    let out = lines.collect::<Vec<_>>().join("\n");
 
-    let text = Text::new(
-        out.as_str(),
-        Point::new(1, 4),
-        TextStyle::new(&FONT_6x12, BinaryColor::On),
-    );
-    text.draw(&mut display).unwrap();
+    let style = MonoTextStyle::new(&FONT, BinaryColor::On);
+    let text = Text::new(out.as_str(), Point::new(3, 6), style);
+    text.draw(display).unwrap();
     display.flush();
+}
 
+fn main() -> std::io::Result<()> {
+    let mut display = Display::new(DEV);
+
+    for o in [0, 2, 1, 5, 9] {
+        display.clear();
+        display.draw_pattern(o);
+        display.flush();
+        sleep(Duration::from_millis(200));
+    }
+
+    print_ip_a(&mut display);
     Ok(())
 }
