@@ -3,13 +3,12 @@ use std::process::Command;
 use std::time::Duration;
 use std::{fs::File, thread::sleep};
 
-use embedded_graphics::pixelcolor::raw::ToBytes;
-use embedded_graphics::primitives::{PrimitiveStyleBuilder, Rectangle};
 use embedded_graphics::{
     image::{Image, ImageRaw, ImageRawLE as ImageFormat},
     mono_font::{ascii::FONT_5X8 as FONT, MonoTextStyle},
-    pixelcolor::Rgb565 as COLOR,
+    pixelcolor::{raw::ToBytes, Rgb565 as COLOR},
     prelude::*,
+    primitives::{PrimitiveStyleBuilder, Rectangle},
     text::Text,
 };
 use evdev::{Device, KeyCode};
