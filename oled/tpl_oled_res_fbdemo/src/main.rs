@@ -11,7 +11,7 @@ use embedded_graphics::{
     primitives::{PrimitiveStyleBuilder, Rectangle},
     text::Text,
 };
-use evdev::{Device, EventSummary, KeyCode};
+use evdev::{Device, KeyCode};
 
 const DEMO_ANIMATION: bool = false;
 const HACK_THE_PLANET: bool = true;
@@ -259,67 +259,68 @@ fn play_demo(display: &mut Display) {
 }
 
 /// Listen to keyboard events and act accordingly.
-/// The device has two buttons.
+/// The device has two buttons, but they currently end up on different evdevs.
 fn enter_loop(display: &mut Display) -> ! {
-    let mut device = Device::open("/dev/input/event0").unwrap();
+    let dev0 = Device::open("/dev/input/event0").unwrap();
+    let dev1 = Device::open("/dev/input/event1").unwrap();
 
     let mut sel_opt = 0;
+    let mut show = true;
     let mut sel_img = BackgroundImage::Flag;
 
     loop {
-        for event in device.fetch_events().unwrap() {
-            match event.destructure() {
-                /*
-                EventSummary::Key(_ev, KeyCode::KEY_MENU, 1) => {
-                    if VERBOSE {
-                        println!("menu");
-                    }
-                    sel_opt += 1;
-                    if sel_opt == MAX_OPTION {
-                        sel_opt = 0;
-                    }
-                    display.clear();
-                    print_bg(display, &sel_img);
-                    print_menu(display, sel_opt);
-                    display.flush();
-                }
-                */
-                EventSummary::Key(_ev, KeyCode::KEY_MENU, 1) => {
-                    if VERBOSE {
-                        println!("enter");
-                    }
-                    display.clear();
-                    match sel_opt {
-                        0 | 1 => {
-                            display.draw_pattern(sel_opt);
-                            display.flush();
-                            sleep(Duration::from_millis(1000));
-                        }
-                        2 => {
-                            sel_img = match sel_img {
-                                BackgroundImage::Ferris => BackgroundImage::Flag,
-                                BackgroundImage::Flag => BackgroundImage::Ferris,
-                            };
-                        }
-                        3 => {
-                            play_demo(display);
-                        }
-                        _ => unreachable!(),
-                    }
-                    sel_opt += 1;
-                    if sel_opt == MAX_OPTION {
-                        sel_opt = 0;
-                    }
-                    display.clear();
-                    print_bg(display, &sel_img);
-                    print_menu(display, sel_opt);
-                    display.flush();
-                }
-                EventSummary::Key(_, key_type, 0) => {
-                    println!("Key {key_type:?} was released");
-                }
-                _ => println!("got a different event!"),
+        let s = dev0.get_key_state().unwrap();
+        if s.contains(KeyCode::KEY_POWER) {
+            if VERBOSE {
+                println!("POWER!");
             }
+            display.clear();
+            match sel_opt {
+                0 | 1 => {
+                    if show {
+                        display.draw_pattern(sel_opt);
+                        // Show the menu next time.
+                        show = false;
+                    } else {
+                        print_bg(display, &sel_img);
+                        print_menu(display, sel_opt);
+                        // Show the pattern again next time.
+                        show = true;
+                    }
+                }
+                2 => {
+                    sel_img = match sel_img {
+                        BackgroundImage::Ferris => BackgroundImage::Flag,
+                        BackgroundImage::Flag => BackgroundImage::Ferris,
+                    };
+                    print_bg(display, &sel_img);
+                    print_menu(display, sel_opt);
+                }
+                3 => {
+                    play_demo(display);
+                    display.clear();
+                    print_bg(display, &sel_img);
+                    print_menu(display, sel_opt);
+                }
+                _ => unreachable!(),
+            }
+            display.flush();
+        }
+        let s = dev1.get_key_state().unwrap();
+        if s.contains(KeyCode::KEY_MENU) {
+            if VERBOSE {
+                println!("UP!");
+            }
+            sel_opt += 1;
+            if sel_opt == MAX_OPTION {
+                sel_opt = 0;
+            }
+            // Next time a pattern is selected, show it.
+            show = true;
+            display.clear();
+            print_bg(display, &sel_img);
+            print_menu(display, sel_opt);
+            display.flush();
         }
         sleep(Duration::from_millis(60));
     }
