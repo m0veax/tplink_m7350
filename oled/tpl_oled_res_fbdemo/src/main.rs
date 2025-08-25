@@ -11,7 +11,7 @@ use embedded_graphics::{
     primitives::{PrimitiveStyleBuilder, Rectangle},
     text::Text,
 };
-use evdev::{Device, KeyCode};
+use evdev::{Device, EventSummary, KeyCode};
 
 const DEMO_ANIMATION: bool = false;
 const HACK_THE_PLANET: bool = true;
@@ -20,7 +20,7 @@ const HACK_THE_PLANET: bool = true;
 const VERBOSE: bool = false;
 
 #[cfg(any(target_arch = "arm"))]
-const DEV: &str = "/sys/class/display/oled/oled_buffer";
+const DEV: &str = "/dev/fb0";
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
 const DEV: &str = "oled_buffer";
 
@@ -36,18 +36,6 @@ const WRITE_TO_FILE: bool = true;
 // NOTE: This works for b/w output, not very useful with colors, only for text.
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
 const WRITE_TO_TERM: bool = true;
-
-// These are driver specifics for the Arm target.
-// The current driver is using a sysfs file for the framebuffer, no `/dev/fbX`,
-// so only PAGE_SIZE-1 (4095) bytes can be sent to it in one shot (a terminating
-// null-byte is added by sysfs), so split into chunks.
-// https://docs.kernel.org/filesystems/sysfs.html
-#[cfg(any(target_arch = "arm"))]
-const CHUNK_SIZE: usize = 2048;
-#[cfg(any(target_arch = "arm"))]
-const CHUNK_COUNT: usize = FB_SIZE / CHUNK_SIZE;
-#[cfg(any(target_arch = "arm"))]
-const CHUNK_HEIGHT: u8 = (HEIGHT / CHUNK_COUNT as u32) as u8;
 
 const WIDTH: u32 = 128;
 const HEIGHT: u32 = 128;
@@ -90,14 +78,7 @@ impl Display {
     pub fn flush(&mut self) {
         // We need to prepend the coordinates (bytes 0+1) and dimensions (2+3).
         #[cfg(any(target_arch = "arm"))]
-        for c in 0..CHUNK_COUNT {
-            let y = c as u8 * CHUNK_HEIGHT;
-            let coords_and_dims = &[0, y, WIDTH as u8, CHUNK_HEIGHT];
-            let offset = c * CHUNK_SIZE;
-            let chunk = &self.framebuffer[offset..(offset + CHUNK_SIZE)];
-            let data = &[coords_and_dims, chunk].concat();
-            self.dev.write_all_at(data, 0).unwrap();
-        }
+        self.dev.write_all_at(&self.framebuffer, 0).ok();
         #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
         {
             if WRITE_TO_FILE {
@@ -278,68 +259,67 @@ fn play_demo(display: &mut Display) {
 }
 
 /// Listen to keyboard events and act accordingly.
-/// The device has two buttons, but they currently end up on different evdevs.
+/// The device has two buttons.
 fn enter_loop(display: &mut Display) -> ! {
-    let dev0 = Device::open("/dev/input/event0").unwrap();
-    let dev1 = Device::open("/dev/input/event1").unwrap();
+    let mut device = Device::open("/dev/input/event0").unwrap();
 
     let mut sel_opt = 0;
-    let mut show = true;
     let mut sel_img = BackgroundImage::Flag;
 
     loop {
-        let s = dev0.get_key_state().unwrap();
-        if s.contains(KeyCode::KEY_POWER) {
-            if VERBOSE {
-                println!("POWER!");
-            }
-            display.clear();
-            match sel_opt {
-                0 | 1 => {
-                    if show {
-                        display.draw_pattern(sel_opt);
-                        // Show the menu next time.
-                        show = false;
-                    } else {
-                        print_bg(display, &sel_img);
-                        print_menu(display, sel_opt);
-                        // Show the pattern again next time.
-                        show = true;
+        for event in device.fetch_events().unwrap() {
+            match event.destructure() {
+                /*
+                EventSummary::Key(_ev, KeyCode::KEY_MENU, 1) => {
+                    if VERBOSE {
+                        println!("menu");
                     }
-                }
-                2 => {
-                    sel_img = match sel_img {
-                        BackgroundImage::Ferris => BackgroundImage::Flag,
-                        BackgroundImage::Flag => BackgroundImage::Ferris,
-                    };
-                    print_bg(display, &sel_img);
-                    print_menu(display, sel_opt);
-                }
-                3 => {
-                    play_demo(display);
+                    sel_opt += 1;
+                    if sel_opt == MAX_OPTION {
+                        sel_opt = 0;
+                    }
                     display.clear();
                     print_bg(display, &sel_img);
                     print_menu(display, sel_opt);
+                    display.flush();
                 }
-                _ => unreachable!(),
+                */
+                EventSummary::Key(_ev, KeyCode::KEY_MENU, 1) => {
+                    if VERBOSE {
+                        println!("enter");
+                    }
+                    display.clear();
+                    match sel_opt {
+                        0 | 1 => {
+                            display.draw_pattern(sel_opt);
+                            display.flush();
+                            sleep(Duration::from_millis(1000));
+                        }
+                        2 => {
+                            sel_img = match sel_img {
+                                BackgroundImage::Ferris => BackgroundImage::Flag,
+                                BackgroundImage::Flag => BackgroundImage::Ferris,
+                            };
+                        }
+                        3 => {
+                            play_demo(display);
+                        }
+                        _ => unreachable!(),
+                    }
+                    sel_opt += 1;
+                    if sel_opt == MAX_OPTION {
+                        sel_opt = 0;
+                    }
+                    display.clear();
+                    print_bg(display, &sel_img);
+                    print_menu(display, sel_opt);
+                    display.flush();
+                }
+                EventSummary::Key(_, key_type, 0) => {
+                    println!("Key {key_type:?} was released");
+                }
+                _ => println!("got a different event!"),
             }
-            display.flush();
-        }
-        let s = dev1.get_key_state().unwrap();
-        if s.contains(KeyCode::KEY_UP) {
-            if VERBOSE {
-                println!("UP!");
-            }
-            sel_opt += 1;
-            if sel_opt == MAX_OPTION {
-                sel_opt = 0;
-            }
-            // Next time a pattern is selected, show it.
-            show = true;
-            display.clear();
-            print_bg(display, &sel_img);
-            print_menu(display, sel_opt);
-            display.flush();
         }
         sleep(Duration::from_millis(60));
     }
