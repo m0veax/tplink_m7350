@@ -34,7 +34,8 @@ Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=
 ## Related projects
 
 - [Rayhunter repository](https://github.com/EFForg/rayhunter)
-    - [porting to the M7350](https://github.com/m0veax/rayhunter-tplink-m7350)
+    - [porting to the M7350](https://github.com/m0veax/rayhunter-tplink-m7350) (obsolete)
+- [femto8](https://github.com/untitaker/femto8/tree/framebuffer) - femto8 is an open-source reimplementation of the PICO-8 fantasy console adapted for the TP-Link M7350
 
 ## TOC
 
