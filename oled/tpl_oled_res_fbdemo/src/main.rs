@@ -166,7 +166,7 @@ impl DrawTarget for Display {
             if let Ok((x @ 0..WIDTH, y @ 0..HEIGHT)) = coord.try_into() {
                 let l = y * STRIDE;
                 let i = (l + x * 2) as usize;
-                let pixel = color.to_be_bytes();
+                let pixel = color.to_le_bytes();
                 self.framebuffer[i] = pixel[0];
                 self.framebuffer[i + 1] = pixel[1];
             }
