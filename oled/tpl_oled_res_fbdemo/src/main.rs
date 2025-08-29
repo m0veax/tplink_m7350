@@ -30,6 +30,9 @@ const IP_CMD: &str = "/bbin/ip";
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
 const IP_CMD: &str = "ip";
 
+const KEXEC_CMD: &str = "/kexec";
+const KERNEL_PATH: &str = "/zImage";
+
 // Debug options for local use on your x86 dev machine
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
 const WRITE_TO_FILE: bool = true;
@@ -147,7 +150,7 @@ impl DrawTarget for Display {
             if let Ok((x @ 0..WIDTH, y @ 0..HEIGHT)) = coord.try_into() {
                 let l = y * STRIDE;
                 let i = (l + x * 2) as usize;
-                let pixel = color.to_be_bytes();
+                let pixel = color.to_le_bytes();
                 self.framebuffer[i] = pixel[0];
                 self.framebuffer[i + 1] = pixel[1];
             }
@@ -179,6 +182,18 @@ fn print_ip_a(display: &mut Display) {
 
     let style = MonoTextStyle::new(&FONT, COLOR::CSS_GREEN_YELLOW);
     let text = Text::new(out.as_str(), Point::new(3, 6), style);
+    text.draw(display).unwrap();
+}
+
+fn boot(display: &mut Display) {
+    let _ = Command::new(KEXEC_CMD)
+        .arg("-cf")
+        .arg(KERNEL_PATH)
+        .output()
+        .ok();
+
+    let style = MonoTextStyle::new(&FONT, COLOR::CSS_GREEN_YELLOW);
+    let text = Text::new("Not worky...", Point::new(3, 110), style);
     text.draw(display).unwrap();
 }
 
@@ -224,7 +239,7 @@ fn print_menu(display: &mut Display, sel: usize) {
             .draw(display)
             .unwrap();
         let l = match i {
-            0 => "pattern 1",
+            0 => "LinuxBoot",
             1 => "pattern 2",
             2 => "change bg",
             3 => "   DEMO  ",
@@ -276,7 +291,10 @@ fn enter_loop(display: &mut Display) -> ! {
             }
             display.clear();
             match sel_opt {
-                0 | 1 => {
+                0 => {
+                    boot(display);
+                }
+                1 => {
                     if show {
                         display.draw_pattern(sel_opt);
                         // Show the menu next time.
