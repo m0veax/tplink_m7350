@@ -12,6 +12,7 @@ The devices are generally based on Qualcomm SoCs.
 There are multiple hardware revisions. We have taken them apart and added
 photos, notes on specific parts and possible hardware modification:
 
+- [M7350 v2](README-v2.md)
 - [M7350 v3](README-v3.md)
 - [M7350 v4](README-v4.md)
 - [M7350 v5](README-v5.md)
