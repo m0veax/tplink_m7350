@@ -109,6 +109,11 @@ Bus 001 Device 032: ID 2357:0005 TP-Link M7350 4G Mi-Fi Router
 
 To enter fastboot permanently (until reset), run `fastboot reboot bootloader`.
 
+An easier way to enter fastboot is to get a telnet root shell, and then:
+```
+/ # reboot-bootloader
+```
+
 Qualcomm [documents their fastboot commands](
 https://docs.qualcomm.com/bundle/publicresource/topics/80-70014-4/fastboot.html).
 
@@ -123,6 +128,9 @@ The following `getvar` commands yield results:
 | `serialno`          | `MDM9625`        |
 
 You can use `fastboot` to [run a custom kernel](firmware_research/README.md).
+
+On the v2 revision, a fastboot device briefly appears on normal boot, without 
+removing the battery.
 
 ## sdcard
 
@@ -174,6 +182,21 @@ admin:admin
 
 The firmware contains an `adbd`. [ADB access](#start-adbd) can be obtained
 permanently.
+
+It also contains a few `reboot` scripts: `reboot-recovery` and `reboot-bootloader`:
+
+```
+/ # cat /sbin/reboot-recovery
+#! /bin/sh
+
+echo 2 > /etc/reboot-cookie
+reboot
+/ # cat /sbin/reboot-bootloader
+#! /bin/sh
+
+echo 1 > /etc/reboot-cookie
+reboot
+```
 
 ### `./META-INF/com/google/android/updater-script`
 
