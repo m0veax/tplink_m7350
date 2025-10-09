@@ -30,7 +30,7 @@ driver for earlier devices to be in the v2 and v4 tarballs, but not in v3.
 
 ## Community
 
-Join our [Matrix Channel](https://matrix.to/#/!hUtDhlRLVIQJzRgCpE:zehka.net?via=yip.gay&via=matrix.org&via=chaospott.de)
+Join our [Matrix Channel](https://matrix.to/#/#tplink_rayhunter:chaospott.de)
 
 ## Related projects
 
