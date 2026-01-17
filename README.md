@@ -266,8 +266,14 @@ nyy
 - [ ] Try to get OpenWRT running on the Device
 - [x] Find a way to start `adbd`
 - [x] Link v3 Firmware instead of v4
+- [ ] Test Tailscale project (from related projects) on other Hardware Revisions
 
 ## Weblinks
+
+### Related Projects
+
+- [alceawisteria/DeviceHacking](https://codeberg.org/alceawisteria/DeviceHacking/src/branch/main/routers/TPLink_M7350) awesome scripts collection related to TPLink-M7350
+- [MHSEA/Rayhunter-Tailscale-Telegram](https://github.com/MHSEA/Rayhunter-Tailscale-Telegram) run tailscale on the TPLink-M7350 (v9 tested only)
 
 ### OpenWRT discussions
 
