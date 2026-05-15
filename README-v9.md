@@ -1,6 +1,7 @@
 # TP-Link M7350 v9
 
 This board is based on a Quectel EC25-EUC module.
+The bootloader on this revision is not unlockable.
 
 ## Photos
 
